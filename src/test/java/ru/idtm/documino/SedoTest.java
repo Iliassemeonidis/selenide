@@ -68,7 +68,7 @@ public class SedoTest {
     }
 
 
-    //////////////////////// приказ
+    /////////////////////// приказ
     @Test
     public void test_125() {
       //  CreateDocument.createInDoc(REGULATORY_DOCUMENTS, ORDER_DOCUMENTS);
