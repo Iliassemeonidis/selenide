@@ -932,8 +932,10 @@ public class SedoTest {
 //            $(byXpath("//*[@id=\"changing\"]")).setValue(registrationNumber);
 //            $(byText("Искать")).click();
 //            sleep(10000);
+//        } else {
+
+            WorkWithDocuments.tryToFindDoc(registrationNumber);
 //        }
-        WorkWithDocuments.tryToFindDoc(registrationNumber);
 //        $$(byText(registrationNumber))
 //                .first()
 //                .click();
