@@ -1,6 +1,7 @@
 package ru.idtm.documino;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
@@ -42,11 +43,11 @@ public class RequiredFields {
                     .click();
             $$(PATH).findBy(text(BUTTON)).click();
         }else{
-            visblle = $(byXpath("//*[@id=\"drid_addressee_empl\"]")).isDisplayed();
+            visblle = $(byXpath("//*[@id=\"drid_addressee_empl\"]")).is(visible);
             if (visblle) {
                 $(byXpath("//*[@id=\"drid_addressee_empl\"]")).setValue(name);
             } else {
-                visblle = $("#dsid_main_performer_empl").isDisplayed();
+                visblle = $("#dsid_main_performer_empl").is(visible);
                 if (visblle) {
                     $("#dsid_main_performer_empl").setValue(name);
                 } else

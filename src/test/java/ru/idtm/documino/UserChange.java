@@ -11,21 +11,15 @@ public class UserChange {
         sleep(10000);
         $("button.el-tooltip:nth-child(4)").click();
         boolean visible = $(byText("Выход")).isDisplayed();
-        if (visible) {
-            sleep(1000);
-            $(byText("Выход")).click();
-        } else {
+        if (!visible) {
             $("button.el-tooltip:nth-child(5)").click();
             visible = $(byText("Выход")).isDisplayed();
-            if (visible) {
-                sleep(1000);
-                $(byText("Выход")).click();
-            } else {
+            if (!visible) {
                 $("button.el-tooltip:nth-child(3)").click();
-                sleep(1000);
-                $(byText("Выход")).click();
             }
         }
+        sleep(1000);
+        $(byText("Выход")).click();
 
 
     }

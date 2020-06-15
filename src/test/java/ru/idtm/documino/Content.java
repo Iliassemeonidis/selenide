@@ -1,5 +1,6 @@
 package ru.idtm.documino;
 
+import com.codeborne.selenide.ElementsCollection;
 import org.openqa.selenium.By;
 
 import java.io.File;
@@ -16,6 +17,26 @@ public class Content {
                 .uploadFile(new File(fileName));
 
         //$("input").uploadFile(new File(fileName));
+    }
+    public static void contentUploadForAnswer(String fileName) {
+
+//        $$("input")
+//                .shouldHaveSize(4)
+//                .get(2)
+//                .uploadFile(new File(fileName));
+
+      ElementsCollection elements = $$("input");
+        if (elements.size() > 3) {
+            elements
+                    .get(2)
+                    .uploadFile(new File(fileName));
+        } else {
+            elements
+                    .get(1)
+                    .uploadFile(new File(fileName));
+        }
+
+
     }
 
 }
