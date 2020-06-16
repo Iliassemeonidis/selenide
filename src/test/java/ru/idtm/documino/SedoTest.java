@@ -2,6 +2,7 @@ package ru.idtm.documino;
 
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.junit.ScreenShooter;
 import org.junit.Rule;
@@ -56,19 +57,19 @@ public class SedoTest {
     private static final String AUTOTEST_NAME5 = "Автотест5";
 
 
-
     @Rule
     public ScreenShooter screenShooter = ScreenShooter.failedTests().succeededTests();
 
     @Test
     public void tess_90() {
+//        Configuration.headless = true;
         OpenBrowser.openUtl2();
         /// sleep(10000);
-       UserChange.comInAutotest1();
+        UserChange.comInAutotest1();
     }
 
 
-    /////////////////////// приказ
+    ///////////////////// приказ
     @Test
     public void test_125() {
       //  CreateDocument.createInDoc(REGULATORY_DOCUMENTS, ORDER_DOCUMENTS);
@@ -874,7 +875,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
         $("button.empty-purple:nth-child(4)").click();
     }
 
-//    ////////////////// чать 2 Исх, Вх, Внутр, ИП
+    ////////////////// чать 2 Исх, Вх, Внутр, ИП
     @Test
     public void test_229() {
         UserChange.exit();
@@ -923,7 +924,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
             $(byText("Департамент 1")).click();
             //путь к кнопке выбрать подписанта
             $$(PATH).findBy(text(BUTTON)).click();
-        }else {
+        } else {
             $("#dsid_signer_empl").setValue(AUTOTEST_NAME1);
             $(byText(AUTOTEST1)).click();
         }
@@ -941,8 +942,12 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
     public void test_237() {
         // Внешний аресат
         sleep(1000);
-        $("#dsid_agent_person").setValue(AUTOTEST_NAME3);
-        $$(byText("Автотест3 А. Т.,ПАО \"ЛЕНЭНЕРГО\",Сотрудник 3")).first().click();
+
+            $("#dsid_agent_person").setValue(AUTOTEST_NAME3);
+            $$(byText("Автотест3 А. Т.,ПАО \"ЛЕНЭНЕРГО\",Сотрудник 3")).first().click();
+
+
+
 
     }
 
@@ -1068,7 +1073,6 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
         }
 
 
-
     }
 
     @Test
@@ -1147,7 +1151,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
 //    $$(byText(registrationNumber))
 //        .first()
 //        .click();
-           sleep(1000);
+        sleep(1000);
 
 
         UserChange.exit();
@@ -1197,7 +1201,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
     public void test_257() {
         // заполняем обязательные поля
         Buttons.requisites();
-        RequiredFields.addressee(AUTOTEST_NAME1, "Департамент 1",AUTOTEST1);
+        RequiredFields.addressee(AUTOTEST_NAME1, "Департамент 1", AUTOTEST1);
         RequiredFields.description("Auto-test");
         $("#dsid_document_kind").setValue("Вход");
         sleep(1000);
@@ -1299,7 +1303,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
     @Test
     public void test_267() {
         Buttons.requisites();
-        RequiredFields.addressee(AUTOTEST_NAME1, "Департамент 1",AUTOTEST1);
+        RequiredFields.addressee(AUTOTEST_NAME1, "Департамент 1", AUTOTEST1);
         RequiredFields.description("Auto-test");
         $("#dsid_document_kind").setValue("Вход");
         sleep(1000);
@@ -1350,7 +1354,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
         $(".table-scroll-bar").shouldHave(text("Рассмотрение"));
     }
 
-  //////   служебная записка
+    //////   служебная записка
     @Test
     public void test_274() {
 //        CreateDocument.createInDoc(INTERNAL_DOCUMENTS,MEMORANDUM_TEXT);
@@ -1390,7 +1394,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
     public void test_278() {
         // адресат
 
-        RequiredFields.addressee(AUTOTEST_NAME2,"Департамент 2",AUTOTEST2);
+        RequiredFields.addressee(AUTOTEST_NAME2, "Департамент 2", AUTOTEST2);
 //        $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[1]/div[10]/div/div/div/div[1]/div/div/div/div/div/div[1]/button")).click();
 //        $("#query").setValue(AUTOTEST_NAME2);
 //        //$(byXpath("//*[@id=\"query\"]")).setValue(BOSS);
@@ -1450,9 +1454,9 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
 
     }
 
-
-    ////////  Создание Исполнительного поручения
-
+//
+//    ////////  Создание Исполнительного поручения
+//
     @Test
     public void test_283() {
         CreateDocument.create(ERRAND);
@@ -1463,20 +1467,14 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
         Buttons.content();
         Content.contentUpload(ERRAND_DOC);
     }
-
+//
     @Test
     public void test_285() {
         // заполняем поля
         Buttons.requisites();
-        RequiredFields.addressee(AUTOTEST_NAME1,"Департамент 1",AUTOTEST1);
-//        $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[1]/div[5]/div/div/div[1]/div/div/div/div/div/div[1]/button")).click();
-////        $(byXpath("//*[@id=\"query\"]")).setValue(AUTOTEST_NAME1);
-////        $(byText("Департамент 1")).click();
-////        $$(PATH).findBy(text(BUTTON)).click();
+        RequiredFields.completeFieldsForProactiveAssignments(AUTOTEST_NAME1,AUTOTEST1);
         RequiredFields.description("Auto-test777");
-//        $(byXpath("//*[@id=\"dss_description\"]")).setValue("Auto-test");
-        $(byXpath("//*[@id=\"dsdt_control_date\"]")).click();
-        $(byText("7")).click();
+
     }
 
 
@@ -1586,6 +1584,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
         // содержание
         Buttons.agreement();
     }
+
     @Test
     public void test_299() {
         // меняем пользователей

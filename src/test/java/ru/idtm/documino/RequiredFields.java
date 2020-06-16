@@ -16,11 +16,9 @@ public class RequiredFields {
         if (visible) {
             $(byXpath("//*[@id=\"dss_description\"]")).setValue(text);
         }else{
-            visible = $("#dss_description").isDisplayed();
-            if (visible) {
-                $("#dss_description").setValue(text);
-            } else $("#dss_description").setValue(text);
-            }
+//            visible = $("#dss_description").isDisplayed();
+            $("#dss_description").setValue(text);
+        }
 
 
     }
@@ -73,6 +71,13 @@ public class RequiredFields {
                 .click();
         $$(PATH).findBy(text(BUTTON)).click();
 
+    }
+
+    public static void completeFieldsForProactiveAssignments(String name,String fulleName) {
+        $("#dsid_main_performer_empl").setValue(name);
+        $(byText(fulleName)).click();
+       $("#dsdt_control_date").click();
+       $(byText("5")).click();
     }
 
 

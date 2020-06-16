@@ -4,6 +4,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CreateDocument {
+    
     public static void create(String documentName){
         $(byText("Создать документ")).click();
         boolean visible = $(byText(documentName)).isDisplayed();
