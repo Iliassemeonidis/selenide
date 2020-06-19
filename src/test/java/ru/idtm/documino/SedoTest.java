@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
-public class SedoTest {
+public class SedoTest  {
 
     private final String BUTTON = "Выбрать";
     private final String PATH = "html body.el-popup-parent--hidden div.el-dialog__wrapper div.el-dialog.user-list-dialogue-wrapper div.el-dialog__footer span.dialog-footer button.primary.default-margin-right.btn-def.fs-12";
@@ -62,14 +62,14 @@ public class SedoTest {
 
     @Test
     public void tess_90() {
-//        Configuration.headless = true;
+        //Configuration.headless = true;
         OpenBrowser.openUtl2();
         /// sleep(10000);
         UserChange.comInAutotest1();
     }
 
 
-    ///////////////////// приказ
+//    ///////////////////// приказ
     @Test
     public void test_125() {
       //  CreateDocument.createInDoc(REGULATORY_DOCUMENTS, ORDER_DOCUMENTS);
@@ -875,7 +875,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
         $("button.empty-purple:nth-child(4)").click();
     }
 
-    ////////////////// чать 2 Исх, Вх, Внутр, ИП
+    //////////////// чать 2 Исх, Вх, Внутр, ИП
     @Test
     public void test_229() {
         UserChange.exit();
@@ -941,12 +941,10 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
     @Test
     public void test_237() {
         // Внешний аресат
-        sleep(1000);
+        sleep(10000);
 
             $("#dsid_agent_person").setValue(AUTOTEST_NAME3);
             $$(byText("Автотест3 А. Т.,ПАО \"ЛЕНЭНЕРГО\",Сотрудник 3")).first().click();
-
-
 
 
     }
@@ -980,6 +978,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
     @Test
     public void test_241() {
         //нажимаем на вкладку соласование и подписание
+        sleep(10000);
         $(byText("Согласование и подписание")).click();
     }
 
@@ -1159,7 +1158,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
     }
 
 
-    /////////// //////// Входящий документ
+    ///////// //////// Входящий документ
 
     @Test
     public void test_254() {
@@ -1257,6 +1256,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
     @Test
     public void test_262() {
         Buttons.requisites();
+        sleep(10000);
         $$("div.form-item-container:nth-child(2) > div:nth-child(1) > div:nth-child(2)").findBy(text("В канцелярии"));
     }
 
@@ -1264,7 +1264,15 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
     public void test_263() {
         // задание
         Buttons.history();
-        $(".table-scroll-bar").shouldHave(text("Предварительное рассмотрение"));
+        sleep(10000);
+        boolean vivsible = $(".table-scroll-bar").has(text("Предварительное рассмотрение"));
+        if (vivsible) {
+
+            $(".table-scroll-bar").shouldHave(text("Предварительное рассмотрение"));
+        } else {
+            $("div.tabs-wrapper:nth-child(2) > div:nth-child(2)").shouldHave(text("Предварительное рассмотрение"));
+        }
+
         sleep(10000);
     }
 
@@ -1351,7 +1359,8 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
         // задание
         sleep(10000);
         Buttons.history();
-        $(".table-scroll-bar").shouldHave(text("Рассмотрение"));
+        $(".documentTab").shouldHave(text("Рассмотрение"));
+//        .documentTab
     }
 
     //////   служебная записка
@@ -1429,6 +1438,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
         sleep(1000);
         Buttons.requisites();
         registrationNumber = $(byXpath("//*[@id=\"dss_reg_number\"]")).getValue();
+        sleep(10000);
     }
 
     @Test
@@ -1454,25 +1464,30 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
 
     }
 
-//
-//    ////////  Создание Исполнительного поручения
+    //
+//    ////////  Создание Инициаивное поручения
 //
     @Test
     public void test_283() {
+        // Configuration.headless = true;
+        sleep(10000);
         CreateDocument.create(ERRAND);
     }
 
     @Test
     public void test_284() {
+        // Configuration.headless = true;
         Buttons.content();
         Content.contentUpload(ERRAND_DOC);
     }
-//
+
+    //
     @Test
     public void test_285() {
         // заполняем поля
+        //  Configuration.headless = true;
         Buttons.requisites();
-        RequiredFields.completeFieldsForProactiveAssignments(AUTOTEST_NAME1,AUTOTEST1);
+        RequiredFields.completeFieldsForProactiveAssignments(AUTOTEST_NAME1, AUTOTEST1);
         RequiredFields.description("Auto-test777");
 
     }
@@ -1480,6 +1495,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
 
     @Test
     public void test_286() {
+       // Configuration.headless = true;
         sleep(1000);
         Buttons.save();
         sleep(1000);
@@ -1490,6 +1506,7 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
     //    //////////// Доверенность
     @Test
     public void test_287() {
+        sleep(10000);
         CreateDocument.create("ДОВЕРЕННОСТЬ");
     }
 
@@ -1515,9 +1532,9 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
     @Test
     public void test_291() {
         // содержание
-        sleep(1000);
+        sleep(10000);
         Buttons.save();
-        sleep(1000);
+        sleep(10000);
 
     }
 
@@ -1599,6 +1616,10 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
         // находим доверенность
         WorkWithDocuments.tryToFindDoc(registrationNumber, "Подписание");
     }
+
+
+
+
 
 
 }
