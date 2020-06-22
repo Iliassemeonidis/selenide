@@ -11,7 +11,7 @@ public class CreateDocument {
         if (visible) {
             $(byText(documentName)).click();
         }else {
-            $(byText("Создать документ")).click();
+           // $(byText("Создать документ")).click();
             $("html body.el-popup-parent--hidden div.el-dialog__wrapper div.el-dialog div.el-dialog__body div div.dialogue-container div.items-container div.scroll-wrap div.search-input-wrapper div.input-with-select.el-input input.el-input__inner").setValue(documentName);
             $$(byText(documentName)).first().click();
             sleep(10000);

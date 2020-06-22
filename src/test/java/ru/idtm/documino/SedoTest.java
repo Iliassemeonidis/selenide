@@ -2,13 +2,13 @@ package ru.idtm.documino;
 
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.junit.ScreenShooter;
+import fields.Fields;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.io.File;
+import java.lang.reflect.Field;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.text;
@@ -38,6 +38,7 @@ public class SedoTest  {
     private final String REGULATORY_DOCUMENTS = "РАСПОРЯДИТЕЛЬНЫЕ ДОКУМЕНТЫ";
     private final String ORDER_DOCUMENTS = "Приказ (пустая форма)";
     private final String ORDER_DOCUMENTS1 = "Приказ (общий)";
+    private final String ORDER = "Приказ";
     private static String registrationNumber;
     private static String identifier;
     private static String temporaryNumber;
@@ -46,6 +47,11 @@ public class SedoTest  {
     private static String organization;
     private static String department;
     private static final String AUTOTEST1 = "Автотест1 , Сотрудник, Департамент 1";
+    private static final String DEPARTMENT1 = "Департамент 1";
+    private static final String DEPARTMENT2 = "Департамент 2";
+    private static final String DEPARTMENT3 = "Департамент 3";
+    private static final String DEPARTMENT4 = "Департамент 4";
+    private static final String DEPARTMENT5 = "Департамент 5";
     private static final String AUTOTEST_NAME1 = "Автотест1";
     private static final String AUTOTEST2 = "Автотест2 , Сотрудник, Департамент 2";
     private static final String AUTOTEST_NAME2 = "Автотест2";
@@ -63,7 +69,7 @@ public class SedoTest  {
     @Test
     public void tess_90() {
         //Configuration.headless = true;
-        OpenBrowser.openUtl2();
+        OpenBrowser.openLeProd();
         /// sleep(10000);
         UserChange.comInAutotest1();
     }
@@ -78,7 +84,14 @@ public class SedoTest  {
         boolean order = $(byText(ORDER_DOCUMENTS)).isDisplayed();
         if (!order) {
             $(byText(ORDER_DOCUMENTS1)).click();
-        }else $(byText(ORDER_DOCUMENTS)).click();
+        }else{
+            order = $(byText(ORDER_DOCUMENTS)).is(visible);
+            if (!order) {
+                $(byText(ORDER)).click();
+            }else
+            $(byText(ORDER_DOCUMENTS)).click();
+        }
+
         $(byText("Создать")).click();
     }
 
@@ -99,23 +112,7 @@ public class SedoTest  {
     @Test
     public void test_128() {
 // заполняем поле подписант
-        boolean visible = $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[1]/div[9]/div/div/div/div[1]/div/div/div/div/div[1]/button")).isDisplayed();
-        if (visible) {
-
-            $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[1]/div[9]/div/div/div/div[1]/div/div/div/div/div[1]/button")).click();
-            $("div.input-select-container:nth-child(3) > div:nth-child(1) > div:nth-child(2) > button:nth-child(2)").click();
-            sleep(1000);
-            $(byXpath("//*[@id=\"query\"]")).setValue(AUTOTEST_NAME2);
-            sleep(1000);
-
-            $(byXpath("//*[@id=\"branchId\"]")).setValue("Тестовый Филиал");
-            $(byText("Тестовый Филиал")).click();
-            $(byText("Департамент 2")).click();
-            $$(PATH).findBy(text(BUTTON)).click();
-        } else {
-            $("#dsid_signer_empl").setValue(AUTOTEST_NAME2);
-            $(byText(AUTOTEST2)).click();
-        }
+        Fields.singer(AUTOTEST_NAME2,DEPARTMENT2,AUTOTEST2);
     }
 
     // переходим в контент
@@ -186,7 +183,7 @@ public class SedoTest  {
     // заполняем этапы  проверка оформления
     @Test
     public void test_138() {
-        // добавляем
+        // добавляем проверка оформления
         boolean visible = $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[5]/div[3]/div[2]/div/div[1]/div[3]/button[1]")).isDisplayed();
         if (visible) {
             $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[5]/div[3]/div[2]/div/div[1]/div[3]/button[1]")).click();
@@ -225,13 +222,13 @@ public class SedoTest  {
 
         $(byXpath("//*[@id=\"term\"]")).setValue("3").pressEnter();
 
-        boolean save = $(byXpath("/html/body/div[6]/div/div[3]/span/button[1]")).isDisplayed();
-        if (!save) {
-            $$(byText("Сохранить")).shouldHaveSize(7)
-                    .get(6)
-                    .click();
-        }else $(byXpath("/html/body/div[6]/div/div[3]/span/button[1]")).click();
-        sleep(1000);
+//        boolean save = $(byXpath("/html/body/div[6]/div/div[3]/span/button[1]")).isDisplayed();
+//        if (!save) {
+//            $$(byText("Сохранить")).shouldHaveSize(7)
+//                    .get(6)
+//                    .click();
+//        }else $(byXpath("/html/body/div[6]/div/div[3]/span/button[1]")).click();
+//        sleep(1000);
 
     }
 
@@ -240,29 +237,7 @@ public class SedoTest  {
     @Test
     public void test_140() {
         // согласующий
-        $(byXpath("//div[@class='column-container']//div[4]//div[2]//div[1]//div[1]//div[3]//button[1]//div[1]//*[local-name()='svg']")).click();
-        $(byXpath("//div[contains(@class,'input-wrapper')]//div[contains(@class,'user-list-container')]//div//div[@class='el-tooltip']//*[local-name()='svg']")).click();
-        boolean dis = $(byXpath("//*[@id=\"branchId\"]")).isDisplayed();
-        if (dis) {
-            $(byXpath("//*[@id=\"branchId\"]")).click();
-            $(byText("Тестовый Филиал")).click();
-            sleep(1000);
-        }
-        dis = $(byXpath("//*[@id=\"query\"]")).isDisplayed();
-
-        if (dis) {
-            $(byXpath("//*[@id=\"query\"]")).setValue(AUTOTEST_NAME4).pressEnter();
-            sleep(1000);
-            $(byText("Департамент 4")).click();
-            $$(PATH).findBy(text(BUTTON)).click();
-        } else{
-            $$(PATH).findBy(text(BUTTON)).click();
-            $("#selectedUsers").setValue(AUTOTEST_NAME4);
-            $(byText(AUTOTEST4)).click();
-        }
-
-        $(byText("Добавить")).click();
-//
+        Fields.agreement(AUTOTEST_NAME4,DEPARTMENT4,AUTOTEST4);
     }
 
     @Test
@@ -303,8 +278,8 @@ public class SedoTest  {
         $(byXpath("//button[@class='action-button full-flex-sizes #ffd700']")).click();
         sleep(1000);
     }
-//
-    //// выходим из босса11
+
+
     @Test
     public void test_144() {
         // выходим из автотест1
@@ -329,7 +304,7 @@ public class SedoTest  {
     @Test
     public void test_147() {
         //находим под автотестом3 по описанию
-        description = "Auto-test777";
+        //description = "Auto-test777";
         WorkWithDocuments.tryToFindDocWithDescription(description);
         System.out.println(description);
 
@@ -339,6 +314,7 @@ public class SedoTest  {
     @Test
     public void test_148() {
         // скачиваем контент
+        sleep(1000);
         $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[1]/div[1]/div/div/button[1]")).click();
         sleep(1000);
 
@@ -414,6 +390,7 @@ public class SedoTest  {
     @Test
     public void test_157() {
         // возвращаем все назад опять на утрвеждение проверки оформления
+        sleep(1000);
         Buttons.bringBack();
         sleep(10000);
     }
@@ -484,6 +461,7 @@ public class SedoTest  {
     @Test
     public void test_167() {
         // отклоняем наш док
+        sleep(1000);
         Buttons.reject();
     }
 
@@ -503,6 +481,7 @@ public class SedoTest  {
     @Test
     public void test_170() {
         // нажимаем отклонить
+        sleep(1000);
         $(byXpath("/html/body/div[2]/div/div[3]/span/button[1]")).click();
     }
 
@@ -998,14 +977,15 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
     @Test
     public void test_243() {
         //ажимаем добавить проверяющего
-        $(".layout-icon").click();
-        $(byXpath("//*[@id=\"branchId\"]")).setValue("Тестовый Филиал");
-        $(byText("Тестовый Филиал")).click();
-        sleep(1000);
-        $(byXpath("//*[@id=\"query\"]")).setValue(AUTOTEST_NAME5).pressEnter();
-        sleep(1000);
-        $(byText("Департамент 5")).click();
-        $$(PATH).findBy(text(BUTTON)).click();
+        Fields.checking(AUTOTEST_NAME5,DEPARTMENT5);
+//        $(".layout-icon").click();
+//        $(byXpath("//*[@id=\"branchId\"]")).setValue("Тестовый Филиал");
+//        $(byText("Тестовый Филиал")).click();
+//        sleep(1000);
+//        $(byXpath("//*[@id=\"query\"]")).setValue(AUTOTEST_NAME5).pressEnter();
+//        sleep(1000);
+//        $(byText("Департамент 5")).click();
+//        $$(PATH).findBy(text(BUTTON)).click();
 
     }
 
@@ -1616,9 +1596,6 @@ WorkWithDocuments.visibleElementWithText("Все задания","Мои зад�
         // находим доверенность
         WorkWithDocuments.tryToFindDoc(registrationNumber, "Подписание");
     }
-
-
-
 
 
 
