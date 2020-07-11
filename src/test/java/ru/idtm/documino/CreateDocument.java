@@ -29,14 +29,12 @@ public class CreateDocument {
         sleep(10000);
 
         if ($(byText(documentName)).is(Condition.visible)) {
-
             $(byText(documentName)).click();
 
-sleep(1000);
+           sleep(1000);
+            if ($$(byText(otherNAme)).size() > 2) {
 
-            if ($(byText(otherNAme)).is(Condition.visible)) {
-
-                $(byText(otherNAme)).click();
+                    $(byText(otherNAme)).click();
             }
         }else {
            // $(byText("Создать документ")).click();
