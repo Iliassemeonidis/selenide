@@ -8,6 +8,11 @@ import static com.codeborne.selenide.Selenide.*;
 public class CreateDocument {
     
     public static void create(String documentName){
+        if (!$(byText("Создать документ")).is(Condition.visible)) {
+            UserChange.exit();
+            UserChange.comInAutotest1();
+        }
+
         $(byText("Создать документ")).click();
         boolean visible = $(byText(documentName)).isDisplayed();
         if (visible) {
@@ -55,6 +60,10 @@ public class CreateDocument {
     }
 
     public static void create(String documentName, String otherNAme){
+        if (!$(byText("Создать документ")).is(Condition.visible)) {
+            UserChange.exit();
+            UserChange.comInAutotest1();
+        }
         $(byText("Создать документ")).click();
         sleep(1000);
         if ($(byText(documentName)).isDisplayed()) {

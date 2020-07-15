@@ -26,17 +26,18 @@ public class Buttons {
     private final static String CREATE_RESOLUTION = "Создать резолюцию";
     private final static String EXECUTE = "Исполнить";
     private final static String PRINT_CART = "Печать карточки";
+    private final static String CONTINUE = "Продолжить";
 
     public static void requisites(){ $(byText(REQUISITES)).click(); }
+    public static void clickContinue(){ $(byText(CONTINUE)).click(); }
+
     public static void save(){ $(byText(SAVE)).click(); }
     public static void delete(){ $(byText(DELETE)).click(); }
     public static void content(){ $(byText(CONTENT)).click(); }
     public static void consideration(){
         $(byText(CONSIDERATION)).click();
     }
-    public static void register(){
-        $(byText(REGISTER)).click();
-    }
+    public static void register(){ $(byText(REGISTER)).click(); }
     public static void review(){ $(byText(REVIEW)).click(); }
     public static void history(){ $(byText(HISTORY)).click(); }
     public static void agreement(){ $(byText(AGREEMENT)).click(); sleep(1000); }

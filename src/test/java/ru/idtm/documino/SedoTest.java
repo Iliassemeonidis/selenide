@@ -143,6 +143,9 @@ public class SedoTest {
     @Test
     public void test_128() {
 // заполняем поле подписант
+        if (corentUrl.equals(OpenBrowser.gettNt())) {
+           Fields.singer(AUTOTEST_NAME2,AUTOTEST2_TNT_EMPLOER);
+        }
         Fields.singer(AUTOTEST_NAME2, DEPARTMENT2, AUTOTEST2, AUTOTEST_ROSSET_NAME2, AUTOTEST_ROSSET_ORGAN_NAME2);
     }
 
@@ -920,7 +923,7 @@ public class SedoTest {
         $("button.empty-purple:nth-child(4)").click();
     }
 
-    ////// чать 2 Исх, Вх, Внутр, ИП
+    //// чать 2 Исх, Вх, Внутр, ИП
     @Test
     public void test_229() {
         UserChange.exit();
@@ -1265,6 +1268,9 @@ public class SedoTest {
         //Жмем кнопку далее
         $(byText("Далее")).click();
         sleep(10000);
+        if ($(byText("Проверка на дубли")).is(Condition.visible)){
+            Buttons.clickContinue();
+        }
     }
 
 
@@ -1347,8 +1353,10 @@ public class SedoTest {
         sleep(10000);
         if ($(".table-scroll-bar").has(text("Предварительное рассмотрение"))) {
             $(".table-scroll-bar").shouldHave(text("Предварительное рассмотрение"));
-        } else {
+        } else if ($("div.tabs-wrapper:nth-child(2) > div:nth-child(2)").has(text("Предварительное рассмотрение"))) {
             $("div.tabs-wrapper:nth-child(2) > div:nth-child(2)").shouldHave(text("Предварительное рассмотрение"));
+        } else {
+            $(byText("Рассмотрение")).shouldHave(visible);
         }
 
         sleep(10000);
@@ -1559,7 +1567,7 @@ public class SedoTest {
 
 
     }
-
+//
 
     //////  Создание Инициаивное поручения
 
@@ -1591,6 +1599,9 @@ public class SedoTest {
         }
         RequiredFields.description("Auto-test777");
 
+
+
+
     }
 
 
@@ -1599,7 +1610,11 @@ public class SedoTest {
         // Configuration.headless = true;
         sleep(1000);
         Buttons.save();
+        if ($("#dsi_number_of_page").is(empty)) {
+            $("#dsi_number_of_page").setValue("1");
+        }
         sleep(1000);
+        Buttons.save();
         Buttons.register();
         Buttons.requisites();
         sleep(1000);
