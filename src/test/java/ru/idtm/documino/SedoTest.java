@@ -53,6 +53,7 @@ public class SedoTest {
     private static String singer;
     private static String organization;
     private static String department;
+    public static String inWork = "В работу";
     private static final String AUTOTEST1 = "Автотест1 , Сотрудник, Департамент 1";
     private static final String DEPARTMENT1 = "Департамент 1";
     private static final String DEPARTMENT2 = "Департамент 2";
@@ -853,7 +854,7 @@ public class SedoTest {
     @Test
     public void test_210() {
         // описание заполняем
-        $(byXpath("//*[@id=\"dssDescription\"]")).setValue("Трям");
+        $(byXpath("//*[@id=\"dssDescription\"]")).setValue(inWork);
     }
 
 
