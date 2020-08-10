@@ -236,7 +236,7 @@ public static void addressee(String name, String emploer) {
         $("#dsid_main_performer_empl").setValue(name);
         $(byText(fulleName)).click();
         $("#dsdt_control_date").click();
-        $(byText("5")).click();
+        $(byText("15")).click();
     }
 
 

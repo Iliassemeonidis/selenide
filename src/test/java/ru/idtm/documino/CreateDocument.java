@@ -14,6 +14,7 @@ public class CreateDocument {
         }
 
         $(byText("Создать документ")).click();
+        sleep(1000);
         boolean visible = $(byText(documentName)).isDisplayed();
         if (visible) {
             $(byText(documentName)).click();
@@ -24,7 +25,10 @@ public class CreateDocument {
             $$(byText(documentName)).first().click();
             sleep(10000);
         }
+        if (!$(byText("Создать")).is(Condition.visible)) {
 
+            $(byText("Создать")).scrollIntoView(true);
+        }
         $(byText("Создать")).click();
     }
     public static void createDoc(String documentName,String otherNAme){
@@ -37,7 +41,7 @@ public class CreateDocument {
             $(byText(documentName)).click();
 
            sleep(1000);
-            if ($$(byText(otherNAme)).size() > 2) {
+            if ($$(byText(otherNAme)).size() > 3) {
 
                     $(byText(otherNAme)).click();
             }
@@ -55,7 +59,10 @@ public class CreateDocument {
             }
             sleep(10000);
         }
+        if (!$(byText("Создать")).is(Condition.visible)) {
 
+            $(byText("Создать")).scrollIntoView(true);
+        }
         $(byText("Создать")).click();
     }
 
@@ -90,6 +97,10 @@ public class CreateDocument {
         sleep(1000);
         $(byText(documentName1)).click();
         sleep(1000);
+        if (!$(byText("Создать")).is(Condition.visible)) {
+
+            $(byText("Создать")).scrollIntoView(true);
+        }
         $(byText("Создать")).click();
     }
 
