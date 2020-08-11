@@ -1,22 +1,16 @@
 package ru.idtm.documino;
 
 
-import com.codeborne.selenide.Browser;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.junit.ScreenShooter;
 import fields.Fields;
 import org.junit.Rule;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
-import java.lang.reflect.Field;
-import java.util.Collection;
 import java.util.Random;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Configuration.*;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.url;
@@ -307,6 +301,7 @@ public class SedoTest {
     @Test
     public void test_140() {
         // согласующий
+
         Fields.agreement(AUTOTEST_NAME4, DEPARTMENT4, AUTOTEST4);
     }
 
@@ -700,6 +695,7 @@ public class SedoTest {
     @Test
     public void test_192() {
         //отклоняем с подписания
+        sleep(1000);
         Buttons.reject();
     }
 
@@ -756,6 +752,7 @@ public class SedoTest {
     @Test
     public void test_200() {
         // отправляесм еще раз на подписание
+        sleep(1000);
         Buttons.toSing();
     }
 
@@ -865,6 +862,8 @@ public class SedoTest {
         sleep(10000);
         Buttons.printCart();
         $(byText("Печать")).click();
+        sleep(100);
+        $(byText("Произошла ошибка при формировании документа")).shouldNotBe(visible);
         sleep(10000);
 
     }

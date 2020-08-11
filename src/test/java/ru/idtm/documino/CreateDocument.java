@@ -32,7 +32,10 @@ public class CreateDocument {
         $(byText("Создать")).click();
     }
     public static void createDoc(String documentName,String otherNAme){
-
+        if (!$(byText("Создать документ")).is(Condition.visible)) {
+            UserChange.exit();
+            UserChange.comInAutotest1();
+        }
         $(byText("Создать документ")).click();
 
         sleep(10000);
