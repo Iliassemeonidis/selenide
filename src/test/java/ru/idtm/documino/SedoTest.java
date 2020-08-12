@@ -619,6 +619,7 @@ public class SedoTest {
     @Test
     public void test_180() {
         // согласовываем
+        sleep(10000);
         Buttons.approve();
     }
 
@@ -896,6 +897,7 @@ public class SedoTest {
     public void test_216() {
         // переходим во вкладку история
        // sleep(20000); проверка
+        sleep(1000);
         Buttons.history();
     }
 
