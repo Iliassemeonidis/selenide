@@ -14,9 +14,9 @@ public class CreateDocument {
         }
 
         $(byText("Создать документ")).click();
-        sleep(1000);
-        boolean visible = $(byText(documentName)).isDisplayed();
-        if (visible) {
+        sleep(10000);
+
+        if ($(byText(documentName)).isDisplayed()) {
             $(byText(documentName)).click();
 
         }else {

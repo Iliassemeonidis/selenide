@@ -27,8 +27,12 @@ public class WorkWithDocuments {
                 $$(byText("Распорядительные документы"))
                         .first()
                         .click();
-            } else {
+            } else if ($(byText("ОРД")).is(Condition.visible)){
                 $$(byText("ОРД"))
+                        .first()
+                        .click();
+            }else if ($(byText("Приказ")).is(Condition.visible)){
+                $$(byText("Приказ"))
                         .first()
                         .click();
             }
@@ -60,6 +64,10 @@ public class WorkWithDocuments {
             if ($(byText("Распорядительные документы")).is(Condition.visible)) {
 
                 $$(byText("Распорядительные документы"))
+                        .first()
+                        .click();
+            }else if ($(byText("Приказ")).is(Condition.visible)){
+                $$(byText("Приказ"))
                         .first()
                         .click();
             } else {

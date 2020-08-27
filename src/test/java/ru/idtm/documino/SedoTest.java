@@ -69,6 +69,11 @@ public class SedoTest {
     private static final String AUTOTEST_ROSSET_NAME3 = "Автотест3, зам. начальника отдела, Тестовый отдел";
     private static final String AUTOTEST_ROSSET_NAME4 = "Автотест4, зам. начальника отдела, Тестовый отдел";
     private static final String AUTOTEST_ROSSET_NAME5 = "Автотест5, зам. начальника отдела, Тестовый отдел";
+    private static final String AUTOTEST_KUB1 = "Автотест1, Сотрудник, Тестовый отдел";
+    private static final String AUTOTEST_KUB2 = "Автотест2 , Сотрудник, Тестовый отдел";
+    private static final String AUTOTEST_KUB3 = "Автотест3, Сотрудник, Тестовый отдел";
+    private static final String AUTOTEST_KUB4 = "Автотест4, Сотрудник, Тестовый отдел";
+    private static final String AUTOTEST_KUB5 = "Автотест5, Сотрудник, Тестовый отдел";
     private static final String AUTOTEST_ROSSET_ORGAN_NAME1 = "Автотест1 А. Т.,ПАО \"Кубаньэнерго\",Сотрудник1";
     private static final String AUTOTEST_ROSSET_ORGAN_NAME2 = "Автотест2 А. Т.,ПАО \"Кубаньэнерго\",Сотрудник2";
     private static final String AUTOTEST_ROSSET_ORGAN_NAME3 = "Автотест3 А. Т.,ПАО \"Кубаньэнерго\",Сотрудник3";
@@ -101,7 +106,7 @@ public class SedoTest {
     }
 
 
-    //    ///////////////////// приказ
+    ///// приказ
     @Test
     public void test_125() {
         //  CreateDocument.createInDoc(REGULATORY_DOCUMENTS, ORDER_DOCUMENTS);
@@ -114,10 +119,15 @@ public class SedoTest {
         } else if ($(byText(ORDER_DOCUMENTS1)).is(visible)) {
             $(byText(ORDER_DOCUMENTS1)).click();
         } else if ($(byText(ORDER)).is(visible)) {
-            $(byText(ORDER)).click();
+            if ($$(byText(ORDER)).size() > 1) {
+                $$(byText(ORDER)).last().click();
+            }else $(byText(ORDER)).click();
+
         }
+        if (!$(byText("Создать")).is(Condition.visible)) {
 
-
+            $(byText("Создать")).scrollIntoView(true);
+        }
         $(byText("Создать")).click();
     }
 
@@ -142,8 +152,10 @@ public class SedoTest {
 // заполняем поле подписант
         if (corentUrl.equals(OpenBrowser.gettNt())) {
             Fields.singer(AUTOTEST_NAME2, AUTOTEST2_TNT_EMPLOER);
-        }
-        Fields.singer(AUTOTEST_NAME2, DEPARTMENT2, AUTOTEST2, AUTOTEST_ROSSET_NAME2, AUTOTEST_ROSSET_ORGAN_NAME2);
+        } else if (corentUrl.equals(OpenBrowser.getKuban())) {
+            RequiredFields.singer(AUTOTEST_NAME2,AUTOTEST_KUB2,"div.form-item-container:nth-child(13) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)");
+        }else
+            Fields.singer(AUTOTEST_NAME2, DEPARTMENT2, AUTOTEST2, AUTOTEST_ROSSET_NAME2, AUTOTEST_ROSSET_ORGAN_NAME2);
     }
 
     // переходим в контент
@@ -233,6 +245,7 @@ public class SedoTest {
         } else {
             ElementsCollection el = $$(byText("Добавить этап"));
             el.get(0).click();
+
         }
 
 
@@ -314,7 +327,11 @@ public class SedoTest {
         boolean dis = $(byXpath("//*[@id=\"branchId\"]")).isDisplayed();
         if (dis) {
             $(byXpath("//*[@id=\"branchId\"]")).click();
-            $(byText("Тестовый Филиал")).click();
+            if ($(byText("Тестовый Филиал")).is(visible)) {
+                $(byText("Тестовый Филиал")).click();
+            } else if ($(byText("Тестовый филиал")).is(visible)) {
+                $(byText("Тестовый филиал")).click();
+            }
             sleep(1000);
         }
         dis = $(byXpath("//*[@id=\"query\"]")).isDisplayed();
@@ -322,7 +339,11 @@ public class SedoTest {
         if (dis) {
             $(byXpath("//*[@id=\"query\"]")).setValue(AUTOTEST_NAME5).pressEnter();
             sleep(1000);
-            $(byText("Департамент 5")).click();
+            if ($(byText(AUTOTEST_NAME5)).is(visible)) {
+                $(byText(AUTOTEST_NAME5)).click();
+            } else if ($(byText("Департамент 5")).is(visible)) {
+                $(byText("Департамент 5")).click();
+            }
             $$(PATH).findBy(text(BUTTON)).click();
         } else {
             $$(PATH).findBy(text(BUTTON)).click();
@@ -578,7 +599,7 @@ public class SedoTest {
     public void test_174() {
         // находим наш док по описанию
         sleep(1000);
-        WorkWithDocuments.tryToFindDocWithDescription(description);
+        WorkWithDocuments.tryToFindDocWithDescription(registrationNumber);
     }
 
     @Test
@@ -655,7 +676,7 @@ public class SedoTest {
     @Test
     public void test_186() {
         // находим док по описанию
-        WorkWithDocuments.tryToFindDocWithDescription(description);
+        WorkWithDocuments.tryToFindDocWithDescription(registrationNumber);
 
     }
 
@@ -690,7 +711,7 @@ public class SedoTest {
 
     @Test
     public void test_191() {
-        WorkWithDocuments.tryToFindDocWithSinger(description);
+        WorkWithDocuments.tryToFindDocWithSinger(registrationNumber);
     }
 
     @Test
@@ -747,7 +768,7 @@ public class SedoTest {
     @Test
     public void test_199() {
         // находим наш док
-        WorkWithDocuments.tryToFindDocWithSinger(description);
+        WorkWithDocuments.tryToFindDocWithSinger(registrationNumber);
     }
 
     @Test
@@ -781,7 +802,7 @@ public class SedoTest {
     public void test_204() {
         // находим наш док
         description = "Auto-test777";
-        WorkWithDocuments.tryToFindDocWithDescription(description);
+        WorkWithDocuments.tryToFindDocWithDescription(registrationNumber);
         sleep(10000);
 
     }
@@ -853,7 +874,12 @@ public class SedoTest {
         sleep(1000);
         $("#dsidControllerEmpl").setValue(AUTOTEST_NAME5);
         sleep(1000);
-        $(byText(AUTOTEST5)).click();
+        if (corentUrl.equals(OpenBrowser.getVolsProd()) || corentUrl.equals(OpenBrowser.getVolsSt())) {
+            $(byText("Автотест5 , Сотрудник, Департамент 3")).click();
+        } else {
+
+            $(byText(AUTOTEST5)).click();
+        }
     }
 
 
@@ -928,7 +954,7 @@ public class SedoTest {
         $("button.empty-purple:nth-child(4)").click();
     }
 
-//    // чать 2 Исх, Вх, Внутр, ИП
+  ////////////   чать 2 Исх, Вх, Внутр, ИП
     @Test
     public void test_229() {
         UserChange.exit();
@@ -943,7 +969,9 @@ public class SedoTest {
     @Test
     public void test_231() {
         // исходящий документ
-        CreateDocument.createDoc(OUTPUTDOCUMENT, OUTPUTDOCUMENT1);
+        if (corentUrl.equals(OpenBrowser.getKuban())) {
+            CreateDocument.create(OUTPUTDOCUMENT);
+        } else CreateDocument.createDoc(OUTPUTDOCUMENT, OUTPUTDOCUMENT1);
     }
 
     @Test
@@ -963,14 +991,34 @@ public class SedoTest {
 
     @Test
     public void test_234() {
+
+        String grif = $("#dsid_stamp").getValue();
+
+        if (grif.isEmpty()) {
+            $("#dsid_stamp").click();
+            sleep(1000);
+            $(byText("Общего пользования")).click();
+        }
+
         // Краткое содержание
         $(byXpath("//*[@id=\"dss_description\"]")).setValue("Auto-test777");
 
         String str = $("#dsid_document_kind").getValue();
         if (str.isEmpty()) {
-            $("#dsid_document_kind").setValue("Письмо");
+            $("#dsid_document_kind").setValue("Письм");
+            sleep(10000);
+            if ($(byText("Письмо")).is(visible)) {
+                $(byText("Письмо")).click();
+            } else if ($(byText("Исходящие письма внешним адресатам")).is(visible)) {
+                $(byText("Исходящие письма внешним адресатам")).click();
+            } else if ($(byText("Письма филиалов")).is(visible)) {
+                $(byText("Письма филиалов")).click();
+            }
+        }
+        if (corentUrl.equals(OpenBrowser.getKuban())) {
+            $("#dsid_themes").setValue("Бизнес");
             sleep(1000);
-            $(byText("Письмо")).click();
+            $(byText("Бизнес-процесс")).click();
         }
 
     }
@@ -980,8 +1028,7 @@ public class SedoTest {
     public void test_235() {
         //Подписант
 //       Fields.singer();
-        boolean visble = $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[1]/div[9]/div/div/div[1]/div/div/div/div/div/div[1]/button")).isDisplayed();
-        if (visble) {
+        if ($(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[1]/div[9]/div/div/div[1]/div/div/div/div/div/div[1]/button")).isDisplayed()) {
 
             $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[1]/div[9]/div/div/div[1]/div/div/div/div/div/div[1]/button")).click();
             $(byXpath("//*[@id=\"query\"]")).setValue(AUTOTEST_NAME1);
@@ -1016,13 +1063,7 @@ public class SedoTest {
             }
         }
 
-        String grif = $("#dsid_stamp").getValue();
 
-        if (grif.isEmpty()) {
-            $("#dsid_stamp").click();
-            sleep(1000);
-            $(byText("Общего пользования")).click();
-        }
     }
 
     @Test
@@ -1030,37 +1071,36 @@ public class SedoTest {
         // сохраняем спецом чтоб перекинуло к незаполненым полям если они есть
         Buttons.save();
         sleep(10000);
+        if (corentUrl.equals(OpenBrowser.getKuban())) {
+
+            // ВНЕШНИЙ АДРЕСАТ
+            RequiredFields.addresseeEmpl(AUTOTEST_NAME4, "Автотест4 , Сотрудник, Тестовый отдел");
+        }
 
     }
 
     @Test
     public void test_237() {
-        // Внешний аресат
-        sleep(1000);
-        if (!($("#dsid_agent_person").is(visible))) {
-            $("#dsid_agent_person").scrollIntoView(true);
+        if (corentUrl.equals(OpenBrowser.getLeTest()) || (corentUrl.equals(OpenBrowser.getKuban()))) {
+
+
+            if (!corentUrl.equals(OpenBrowser.getKuban())) {
+
+                $("#dsid_addresse_type").scrollIntoView(true);
+                String type = $("#dsid_addresse_type").getValue();
+                if (!type.equals("Внутренний адресат")) {
+                    RequiredFields.agentPerson(AUTOTEST_NAME3);
+                }
+            } else {
+                RequiredFields.agentPerson(AUTOTEST_NAME1);
+
+                $("#dsid_delivery").setValue("Курьер");
+                sleep(1000);
+                $(byText("Курьер")).click();
+            }
         }
 
-        $("#dsid_agent_person").setValue(AUTOTEST_NAME3);
-        sleep(1000);
 
-        if ($(byText("Автотест3 А. Т.,ПАО \"ЛЕНЭНЕРГО\",Сотрудник 3")).is(visible)) {
-            $$(byText("Автотест3 А. Т.,ПАО \"ЛЕНЭНЕРГО\",Сотрудник 3")).first().click();
-        } else if ($(byText("Автотест3 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник3")).is(visible)) {
-            $(byText("Автотест3 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник3")).click();
-        } else if ($("div.form-item-container:nth-child(14) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
-            $("div.form-item-container:nth-child(14) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
-            $("#fio").setValue(AUTOTEST_NAME3);
-            sleep(1000);
-            $(byText("Сотрудник3")).click();
-            $$(PATH).findBy(text(BUTTON)).click();
-        } else if ($("div.form-item-container:nth-child(16) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
-            $("div.form-item-container:nth-child(16) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
-            $("#fio").setValue(AUTOTEST_NAME1);
-            sleep(1000);
-            $(byText("Сотрудник1")).click();
-            $$(PATH).findBy(text(BUTTON)).click();
-        }
     }
 
     @Test
@@ -1068,7 +1108,7 @@ public class SedoTest {
         // сохраняем
         sleep(10000);
         Buttons.save();
-        sleep(1000);
+        sleep(10000);
 
     }
 
@@ -1231,7 +1271,7 @@ public class SedoTest {
     }
 
 
-//    ///// //////// Входящий документ
+    /// //////// Входящий документ
 
     @Test
     public void test_254() {
@@ -1240,28 +1280,44 @@ public class SedoTest {
 
     @Test
     public void test_255() {
+        if (corentUrl.equals(OpenBrowser.getKuban())) {
+            Content.contentUpload(INPUT_DOC);
+            sleep(10000);
+            $(byText("Далее")).click();
+        }
+
         //Проверка на дубли
         Random rd = new Random();
 
         System.out.println(corentUrl);
+
+
         if (OpenBrowser.gettNt().equals(corentUrl)) {
             $("#dsid_agent_person").setValue(AUTOTEST_NAME3);
             sleep(1000);
             $(byText(AUTOTEST3_TNT)).click();
-        }/// сделать тоже самое для всех площадок такой же ифчик
+        } else if (corentUrl.equals(OpenBrowser.getKuban())) {
+            $("#dsid_agent_person").setValue(AUTOTEST_NAME1);
+            sleep(1000);
+            $(byText("Автотест1, Сотрудник, ПАО \"Кубаньэнерго\"")).click();
+        }
+
+        /// сделать тоже самое для всех площадок такой же ифчик
         else {
             $(".layout-icon").click();
             $("html body.el-popup-parent--hidden div.el-dialog__wrapper div.el-dialog.user-list-dialogue-wrapper div.el-dialog__body div.user-select-dialogue-container div.user-selected-user-list-container div.tabs-wrapper div.column-container.tab-content-wrapper div.user-select-dialogue-wrapper div.table-container div.list-table.bg-color-white div.flex.flex-column.full-flex-sizes.p-r-16.table-header-container div.flex.ai-center.m-b-8 div.m-r-8.w-100.flex div.filter-container div.flex.full-with.filter-field.p-b-0 input#fio.base-input.full-with.fs-12").setValue(AUTOTEST_NAME3);
             sleep(1000);
             if ($(byText("Сотрудник 3")).is(visible)) {
-
                 $$(byText("Сотрудник 3")).first().click();
-            } else {
+            } else if ($(byText("Сотрудник3")).is(visible)) {
                 $(byText("Сотрудник3")).click();
+            } else if ($(byText("Автотест3 А. Т.")).is(visible)) {
+                $(byText("Автотест3 А. Т.")).click();
             }
             $$(PATH).findBy(text(BUTTON)).click();
         }
-        $(byXpath("//*[@id=\"dss_crsp_reg_number\"]")).setValue(String.valueOf(rd.nextInt(201) + 10));
+
+        $(byXpath("//*[@id=\"dss_crsp_reg_number\"]")).setValue(String.valueOf(rd.nextInt(301) + 10));
         $(byXpath("//*[@id=\"dsdt_crsp_reg_date\"]")).click();
 
         if ($(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[2]/div[12]")).isDisplayed()) {
@@ -1269,7 +1325,7 @@ public class SedoTest {
             $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[2]/div[12]")).click();
         } else {
             sleep(1000);
-            $(byText("15")).click();
+            $$(byText("15")).last().click();
         }
 
 
@@ -1280,9 +1336,10 @@ public class SedoTest {
         //Жмем кнопку далее
         $(byText("Далее")).click();
         sleep(10000);
-        if ($(byText("Проверка на дубли")).is(Condition.visible)){
+        if ($(byText("Проверка на дубли")).is(Condition.visible)) {
             Buttons.clickContinue();
         }
+
     }
 
 
@@ -1292,25 +1349,44 @@ public class SedoTest {
         Buttons.requisites();
         sleep(10000);
         RequiredFields.description("Auto-test");
+
+        if (corentUrl.equals(OpenBrowser.getKuban())) {
+            $("#dsid_themes").setValue("Бизнес");
+            sleep(10000);
+            $(byText("Бизнес-процесс")).click();
+        }
+
         if (corentUrl.equals(OpenBrowser.gettNt())) {
             RequiredFields.addressee(AUTOTEST_NAME1, AUTOTEST1_TNT_EMPLOER);
+        } else if (corentUrl.equals(OpenBrowser.getKuban())) {
+            RequiredFields.addressee(AUTOTEST_NAME1, "Автотест1 , Сотрудник, Тестовый отдел");
         } else {
             RequiredFields.addressee(AUTOTEST_NAME1, DEPARTMENT1, AUTOTEST1, "Автотест1 , Зам. начальник отдела, ООО \"Айди-Технологии управления\"");
         }
-        if ($("#dsid_document_kind").is(visible)) {
-
-            $("#dsid_document_kind").setValue("Вход");
+        if (!$("#dsid_document_kind").is(visible)) {
+            $("#dsid_document_kind").scrollIntoView(true);
+            $("#dsid_document_kind").setValue("В");
             sleep(1000);
-            $(byText("Входящие документы")).click();
+            if ($(byText("Внутренняя переписка")).is(visible)) {
+                $(byText("Внутренняя переписка")).click();
+            } else if ($(byText("Входящие документы")).is(visible)) {
+                $(byText("Входящие документы")).click();
+            } else if ($(byText("Письма федеральных органов власти")).is(visible)) {
+                $(byText("Письма федеральных органов власти")).click();
+            }
         }
+
+
     }
 
     @Test
     public void test_258() {
-        // контент загружаем
-        $(byText(CONTENT)).click();
-        Content.contentUpload(INPUT_DOC);
-        sleep(1000);
+        if (!corentUrl.equals(OpenBrowser.getKuban())) {
+            // контент загружаем
+            $(byText(CONTENT)).click();
+            Content.contentUpload(INPUT_DOC);
+            sleep(1000);
+        }
 
     }
 
@@ -1328,127 +1404,154 @@ public class SedoTest {
         //Жмем кнопку зарегистрировать
 //        Buttons.register();
         sleep(1000);
-        $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[1]/div/div/div[1]/div[2]/ul/li[1]/button")).click();
-        //$(byText("Зарегистрировать")).click();
-        sleep(1000);
+        //$(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[1]/div/div/div[1]/div[2]/ul/li[1]/button")).click();
+        $(byXpath("//*[text()='Зарегистрировать']/..")).click();
+        sleep(10000);
     }
 
     @Test
     public void test_261() {
-        // На Рассмотрение
-        sleep(10000);
-        if ($(".\\#ffd700").isDisplayed()) {
-            $(".\\#ffd700").click();
-        } else if ($(byText("На Рассмотрение")).isDisplayed()) {
-            Buttons.review();
+        if (!corentUrl.equals(OpenBrowser.getKuban())) {
 
-        } else if ($(byXpath("//button[@class='action-button full-flex-sizes #ffd700']")).isDisplayed()) {
-            $(byXpath("//button[@class='action-button full-flex-sizes #ffd700']")).click();
+
+            // На Рассмотрение
+            sleep(10000);
+            if ($(".\\#ffd700").isDisplayed()) {
+                $(".\\#ffd700").click();
+            } else if ($(byText("На Рассмотрение")).isDisplayed()) {
+                Buttons.review();
+
+            } else if ($(byXpath("//button[@class='action-button full-flex-sizes #ffd700']")).isDisplayed()) {
+                $(byXpath("//button[@class='action-button full-flex-sizes #ffd700']")).click();
+            }
+
+
+            // sleep(10000);
+            sleep(1000);
         }
-
-
-       // sleep(10000);
-        sleep(1000);
     }
 
 
     @Test
     public void test_262() {
-        Buttons.requisites();
-        sleep(10000);
-        $$("div.form-item-container:nth-child(2) > div:nth-child(1) > div:nth-child(2)").findBy(text("В канцелярии"));
+        if (!corentUrl.equals(OpenBrowser.getKuban())) {
+            Buttons.requisites();
+            sleep(10000);
+            $$("div.form-item-container:nth-child(2) > div:nth-child(1) > div:nth-child(2)").findBy(text("В канцелярии"));
+        }
     }
 
 //    @Test
 //    public void test_263() {
-//        // задание
-//        Buttons.history();
-//        sleep(10000);
-//        if ($(".table-scroll-bar").has(text("Предварительное рассмотрение"))) {
-//            $(".table-scroll-bar").shouldHave(text("Предварительное рассмотрение"));
-//        } else if ($("div.tabs-wrapper:nth-child(2) > div:nth-child(2)").has(text("Предварительное рассмотрение"))) {
-//            $("div.tabs-wrapper:nth-child(2) > div:nth-child(2)").shouldHave(text("Предварительное рассмотрение"));
-//        } else {
-//            $(byText("Рассмотрение")).shouldHave(visible);
-//        }
+//        if (!corentUrl.equals(OpenBrowser.getKuban())) {
+//            // задание
+//            Buttons.history();
 //
-//        sleep(10000);
+//            sleep(10000);
+//            if ($(".table-scroll-bar").has(text("Предварительное рассмотрение"))) {
+//                $(".table-scroll-bar").shouldHave(text("Предварительное рассмотрение"));
+//            } else if ($("div.tabs-wrapper:nth-child(2) > div:nth-child(2)").has(text("Предварительное рассмотрение"))) {
+//                $("div.tabs-wrapper:nth-child(2) > div:nth-child(2)").shouldHave(text("Предварительное рассмотрение"));
+//            } else {
+//                $(byText("Рассмотрение")).shouldHave(visible);
+//            }
+//
+//            sleep(10000);
+//        }
 //    }
 
 
     @Test
     public void test_264() {
-        CreateDocument.create(INPUTDOCUMENT);
+        if (!corentUrl.equals(OpenBrowser.getKuban())) {
+            CreateDocument.create(INPUTDOCUMENT);
+        }
     }
 
     @Test
     public void test_265() {
-        Random rd = new Random();
-        $(".layout-icon").click();
-        $("html body.el-popup-parent--hidden div.el-dialog__wrapper div.el-dialog.user-list-dialogue-wrapper div.el-dialog__body div.user-select-dialogue-container div.user-selected-user-list-container div.tabs-wrapper div.column-container.tab-content-wrapper div.user-select-dialogue-wrapper div.table-container div.list-table.bg-color-white div.flex.flex-column.full-flex-sizes.p-r-16.table-header-container div.flex.ai-center.m-b-8 div.m-r-8.w-100.flex div.filter-container div.flex.full-with.filter-field.p-b-0 input#fio.base-input.full-with.fs-12").setValue(AUTOTEST_NAME3);
-        sleep(1000);
-        if (!($(byText("Сотрудник 3")).is(visible))) {
-
-            $(byText("Сотрудник3")).click();
-        } else {
-            $(byText("Сотрудник 3")).click();
-        }
-        $$(PATH).findBy(text(BUTTON)).click();
-
-        $(byXpath("//*[@id=\"dss_crsp_reg_number\"]")).setValue(String.valueOf(rd.nextInt(401) + 100));
-        $(byXpath("//*[@id=\"dsdt_crsp_reg_date\"]")).click();
-        boolean visible = $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[2]/div[12]")).isDisplayed();
-        if (visible) {
-            $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[2]/div[12]")).click();
-        } else {
+        if (!corentUrl.equals(OpenBrowser.getKuban())) {
+            Random rd = new Random();
+            $(".layout-icon").click();
+            $("html body.el-popup-parent--hidden div.el-dialog__wrapper div.el-dialog.user-list-dialogue-wrapper div.el-dialog__body div.user-select-dialogue-container div.user-selected-user-list-container div.tabs-wrapper div.column-container.tab-content-wrapper div.user-select-dialogue-wrapper div.table-container div.list-table.bg-color-white div.flex.flex-column.full-flex-sizes.p-r-16.table-header-container div.flex.ai-center.m-b-8 div.m-r-8.w-100.flex div.filter-container div.flex.full-with.filter-field.p-b-0 input#fio.base-input.full-with.fs-12").setValue(AUTOTEST_NAME3);
             sleep(1000);
-            $(byText("15")).click();
-        }
+            if (($(byText("Сотрудник 3")).is(visible))) {
+                $(byText("Сотрудник 3")).click();
+            } else if ($(byText("Сотрудник3")).is(visible)) {
+                $(byText("Сотрудник3")).click();
+            } else if ($(byText("Автотест3 А. Т.")).is(visible)) {
+                $(byText("Автотест3 А. Т.")).click();
+            }
+            $$(PATH).findBy(text(BUTTON)).click();
 
+            $(byXpath("//*[@id=\"dss_crsp_reg_number\"]")).setValue(String.valueOf(rd.nextInt(401) + 100));
+            $(byXpath("//*[@id=\"dsdt_crsp_reg_date\"]")).click();
+            boolean visible = $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[2]/div[12]")).isDisplayed();
+            if (visible) {
+                $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[2]/div[12]")).click();
+            } else {
+                sleep(1000);
+                $(byText("15")).click();
+            }
+        }
     }
 
     @Test
     public void test_266() {
-        $(byText("Далее")).click();
-        sleep(10000);
-        if ($(byText("Проверка на дубли")).is(Condition.visible)){
-            Buttons.clickContinue();
-        }
+        if (!corentUrl.equals(OpenBrowser.getKuban())) {
+            $(byText("Далее")).click();
+            sleep(10000);
+            if ($(byText("Проверка на дубли")).is(Condition.visible)) {
+                Buttons.clickContinue();
+            }
 
+        }
     }
 
     @Test
     public void test_267() {
-        Buttons.requisites();
-        sleep(10000);
-        RequiredFields.description("Auto-test");
-        RequiredFields.addressee(AUTOTEST_NAME1, DEPARTMENT1, AUTOTEST1, AUTOTEST_ROSSET_NAME1);
-        if ($("#dsid_document_kind").is(visible)) {
-
-            $("#dsid_document_kind").setValue("Вход");
-            sleep(1000);
-            $(byText("Входящие документы")).click();
+        if (!corentUrl.equals(OpenBrowser.getKuban())) {
+            Buttons.requisites();
+            sleep(10000);
+            RequiredFields.description("Auto-test");
+            RequiredFields.addressee(AUTOTEST_NAME1, DEPARTMENT1, AUTOTEST1, AUTOTEST_ROSSET_NAME1);
+            if (!$("#dsid_document_kind").is(visible)) {
+                $("#dsid_document_kind").scrollIntoView(true);
+                $("#dsid_document_kind").setValue("В");
+                sleep(1000);
+                if ($(byText("Внутренняя переписка")).is(visible)) {
+                    $(byText("Внутренняя переписка")).click();
+                } else if ($(byText("Входящие документы")).is(visible)) {
+                    $(byText("Входящие документы")).click();
+                }
+            }
         }
     }
 
     @Test
     public void test_268() {
-        $(byText(CONTENT)).click();
-        Content.contentUpload(INPUT_DOC);
-        sleep(1000);
+        if (!corentUrl.equals(OpenBrowser.getKuban())) {
+            $(byText(CONTENT)).click();
+            Content.contentUpload(INPUT_DOC);
+            sleep(1000);
+        }
     }
 
     @Test
     public void test_269() {
-        Buttons.save();
-        sleep(1000);
+        if (!corentUrl.equals(OpenBrowser.getKuban())) {
+            Buttons.save();
+            sleep(1000);
+        }
     }
 
     @Test
     public void test_270() {
-        sleep(1000);
-        $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[1]/div/div/div[1]/div[2]/ul/li[1]/button")).click();
-        sleep(10000);
+        if (!corentUrl.equals(OpenBrowser.getKuban())) {
+            sleep(1000);
+            $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[1]/div/div/div[1]/div[2]/ul/li[1]/button")).click();
+            sleep(10000);
+        }
     }
 
 
@@ -1457,7 +1560,7 @@ public class SedoTest {
         // На резолюцию
         sleep(10000);
         $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[1]/div/div/div[1]/div[2]/ul/li[1]/button")).click();
-       // sleep(20000);
+        // sleep(20000);
     }
 
 
@@ -1579,23 +1682,26 @@ public class SedoTest {
 
     @Test
     public void test_282() {
-//     нахолдим нашу служебку
-        $("button.el-tooltip:nth-child(1)").click();
-        $(byText("По резолюциям")).click();
-        $(byText("По документам")).click();
-        $("#types").setValue("Внутренние");
-        sleep(100);
-        $(byText("Внутренние документы")).click();
-        sleep(1000);
-        $(byXpath("//*[@id=\"changing\"]")).setValue(registrationNumber);// по рег номеру не находит
-        $(byText("Искать")).click();
-        sleep(1000);
+   /////////  нахолдим нашу служебку
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+
+            $("button.el-tooltip:nth-child(1)").click();
+            $(byText("По резолюциям")).click();
+            $(byText("По документам")).click();
+            $("#types").setValue("Внутренние");
+            sleep(100);
+            $(byText("Внутренние документы")).click();
+            sleep(1000);
+            $(byXpath("//*[@id=\"changing\"]")).setValue(registrationNumber);// по рег номеру не находит
+            $(byText("Искать")).click();
+            sleep(1000);
+        }
 
 
     }
-//
 
-    //////  Создание Инициаивное поручения
+
+    ////  Создание Инициаивное поручения
 
     @Test
     public void test_283() {
@@ -1607,8 +1713,11 @@ public class SedoTest {
     @Test
     public void test_284() {
         // Configuration.headless = true;
-        Buttons.content();
-        Content.contentUpload(ERRAND_DOC);
+        if (!corentUrl.equals(OpenBrowser.getKuban())) {
+
+            Buttons.content();
+            Content.contentUpload(ERRAND_DOC);
+        }
     }
 
     //
@@ -1648,195 +1757,247 @@ public class SedoTest {
     //////////// Доверенность
     @Test
     public void test_287() {
-        sleep(10000);
-        CreateDocument.create("ДОВЕРЕННОСТЬ", "ДОВЕРЕННОСТИ");
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+
+            sleep(10000);
+            CreateDocument.create("ДОВЕРЕННОСТЬ", "ДОВЕРЕННОСТИ");
+        }
     }
 
     @Test
     public void test_288() {
-        sleep(1000);
-        Content.contentUpload(PROXY_DOC);
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+
+            sleep(1000);
+            Content.contentUpload(PROXY_DOC);
+            sleep(1000);
+        }
     }
 
     @Test
     public void test_289() {
-        Buttons.requisites();
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+
+            Buttons.requisites();
+        }
     }
 
     @Test
     public void test_290() {
-        // содержание
-        $(byXpath("//*[@id=\"dss_description\"]")).setValue("Auto-test888");
-        description = $(byXpath("//*[@id=\"dss_description\"]")).getValue();
-
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+            // содержание
+            $(byXpath("//*[@id=\"dss_description\"]")).setValue("Auto-test888");
+            description = $(byXpath("//*[@id=\"dss_description\"]")).getValue();
+        }
 
     }
 
     @Test
     public void test_291() {
-        // содержание
-        sleep(10000);
-        Buttons.save();
-        sleep(10000);
-
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+            // содержание
+            sleep(1000);
+            Buttons.save();
+            sleep(1000);
+        }
     }
 
 
     @Test
     public void test_292() {
-        // создаем кому
-        sleep(10000);
-        if ($("div.form-item-container:nth-child(11) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)").is(visible)) {
-
-            $("div.form-item-container:nth-child(11) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)").click();
-        } else if ($("div.form-item-container:nth-child(11) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
-            $("div.form-item-container:nth-child(11) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+            // создаем кому
+            sleep(1000);
+            if ($("div.form-item-container:nth-child(11) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)").is(visible)) {
+                $("div.form-item-container:nth-child(11) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1)").click();
+            } else if ($("div.form-item-container:nth-child(11) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
+                $("div.form-item-container:nth-child(11) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
+            }
         }
     }
 
     @Test
     public void test_293() {
-        // кому
-        if ($("#organizationId").is(visible)) {
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+            // кому
+            if ($("#organizationId").is(visible)) {
 
-            String organization = $("#organizationId").getValue();
-            sleep(1000);
-            if (!organization.equals("ПАО \"Кубаньэнерго\"")) {
+                String organization = $("#organizationId").getValue();
+                sleep(1000);
+                if (!organization.equals("ПАО \"Кубаньэнерго\"")) {
 
-                $("#organizationId").setValue("ПАО \"ЛЕНЭНЕРГО\"");
-                $(byText("ПАО \"ЛЕНЭНЕРГО\"")).click();
+                    $("#organizationId").setValue("ПАО \"ЛЕНЭНЕРГО\"");
+                    $(byText("ПАО \"ЛЕНЭНЕРГО\"")).click();
+                    sleep(1000);
+
+                }
+
+                $(byXpath("//*[@id=\"branchId\"]")).setValue("Тестовый Филиал");
+
+                if ($(byText("Тестовый Филиал")).is(visible)) {
+                    $(byText("Тестовый Филиал")).click();
+                } else if ($(byText("Тестовый филиал")).is(visible)) {
+                    $(byText("Тестовый филиал")).click();
+
+                }
                 sleep(1000);
 
+
+                $(byXpath("//*[@id=\"query\"]")).setValue(AUTOTEST_NAME5).pressEnter();
+                sleep(1000);
+                if ($(byText(AUTOTEST5)).is(visible)) {
+                    $(byText(AUTOTEST5)).click();
+                } else if ($(byText(DEPARTMENT5)).is(visible)) {
+                    $(byText(DEPARTMENT5)).click();
+                } else if ($(byText("Тестовый отдел")).is(visible)) {
+                    $(byText("Тестовый отдел")).click();
+                } else if ($(byText("Тестовый Филиал")).is(visible)) {
+                    $(byText("Тестовый Филиал")).click();
+                }
+                $$(PATH).findBy(text(BUTTON)).click();
+                sleep(1000);
+            } else {
+                $("#dsid_to_whom_issued_empl").setValue(AUTOTEST_NAME5);
+                sleep(1000);
+                if ($(byText(AUTOTEST5_TNT_EMPLOER)).is(visible)) {
+                    $(byText(AUTOTEST5_TNT_EMPLOER)).click();
+                } else if ($(byText(AUTOTEST5)).is(visible)) {
+                    $(byText(AUTOTEST5)).click();
+                }
             }
-
-            $(byXpath("//*[@id=\"branchId\"]")).setValue("Тестовый Филиал");
-
-            if ($(byText("Тестовый Филиал")).is(visible)) {
-                $(byText("Тестовый Филиал")).click();
-            } else if ($(byText("Тестовый филиал")).is(visible)) {
-                $(byText("Тестовый филиал")).click();
-
-            }
-            sleep(1000);
-
-
-            $(byXpath("//*[@id=\"query\"]")).setValue(AUTOTEST_NAME5).pressEnter();
-            sleep(1000);
-            if ($(byText(AUTOTEST5)).is(visible)) {
-                $(byText(AUTOTEST5)).click();
-            } else if ($(byText(DEPARTMENT5)).is(visible)) {
-                $(byText(DEPARTMENT5)).click();
-            } else if ( $(byText("Тестовый отдел")).is(visible)){
-                $(byText("Тестовый отдел")).click();
-            } else if ($(byText("Тестовый Филиал")).is(visible)) {
-                $(byText("Тестовый Филиал")).click();
-            }
-            $$(PATH).findBy(text(BUTTON)).click();
-            sleep(1000);
-        } else {
-            $("#dsid_to_whom_issued_empl").setValue(AUTOTEST_NAME5);
-            $(byText(AUTOTEST5_TNT_EMPLOER)).click();
         }
     }
 
     @Test
     public void test_294() {
-        // инициатор
-        //$("div.form-item-container:nth-child(19) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
-        //
-        if ($(byXpath("//input[@id='dsid_executor_empl']")).is(empty)) {
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+            // инициатор
+            //$("div.form-item-container:nth-child(19) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
+            //
+            if ($(byXpath("//input[@id='dsid_executor_empl']")).is(empty)) {
 
-            $(byXpath("//input[@id='dsid_executor_empl']")).setValue(AUTOTEST_NAME5);
-            if ($(byText("Автотест5 , Сотрудник, Департамент 5")).is(visible)) {
+                $(byXpath("//input[@id='dsid_executor_empl']")).setValue(AUTOTEST_NAME5);
+                sleep(1000);
+                if ($(byText("Автотест5 , Сотрудник, Департамент 5")).is(visible)) {
 
-                $$(byText("Автотест5 , Сотрудник, Департамент 5")).first().click();
+                    $$(byText("Автотест5 , Сотрудник, Департамент 5")).first().click();
+                }
             }
-        }
 
+        }
     }
 
     @Test
     public void test_295() {
-
-        $(byXpath("//*[@id=\"dsid_signer_empl\"]")).setValue(AUTOTEST_NAME2);
-        sleep(10000);
-        if (corentUrl.equals(OpenBrowser.gettNt())) {
-            $(byText(AUTOTEST2_TNT_EMPLOER)).click();
-        } else {
-
-            if ($(byText("Автотест2 , Сотрудник, Департамент 2")).is(visible)) {
-                $(byText("Автотест2 , Сотрудник, Департамент 2")).click();
-            } else if ($("div.form-item-container:nth-child(20) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
-                $("div.form-item-container:nth-child(20) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
-                $("#query").setValue(AUTOTEST_NAME2);
-                $(byText(AUTOTEST_NAME2)).click();
-                $$(PATH).findBy(text(BUTTON)).click();
-
-            } else if ($("div.form-item-container:nth-child(19) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
-                $("div.form-item-container:nth-child(19) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)")
-                        .click();
-                sleep(10000);
-                if ($(byXpath("//input[@id='query']")).is(visible)) {
-
-                    $(byXpath("//input[@id='query']")).setValue(AUTOTEST_NAME2);
-
-                    $(byText("Тестовый отдел")).click();
-                } else {
-                    $(byText(AUTOTEST_NAME2)).click();
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+            if (corentUrl.equals(OpenBrowser.getLeTest()) || corentUrl.equals(OpenBrowser.getLeSt()) || corentUrl.equals(OpenBrowser.getLeProd())) {
+                if ($("div.form-item-container:nth-child(20) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
+                    $("div.form-item-container:nth-child(20) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
+                } else if ($("div.form-item-container:nth-child(18) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
+                    $("div.form-item-container:nth-child(18) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
                 }
-
+                sleep(1000);
+                $(byText(AUTOTEST_NAME2)).click();
+                sleep(1000);
                 $$(PATH).findBy(text(BUTTON)).click();
+            } else {
+                $(byXpath("//*[@id=\"dsid_signer_empl\"]")).setValue(AUTOTEST_NAME2);
+                sleep(10000);
+                if (corentUrl.equals(OpenBrowser.gettNt())) {
+                    $(byText(AUTOTEST2_TNT_EMPLOER)).click();
+                } else if ($(byText(AUTOTEST_KUB2)).is(visible)) {
+                    $(byText(AUTOTEST_KUB2)).click();
+                }
+                else if (corentUrl.equals(OpenBrowser.getKuban())) {
+                    if ($("div.form-item-container:nth-child(15) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
+                        $("div.form-item-container:nth-child(15) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
+                        $(byXpath("//input[@id='query']")).setValue(AUTOTEST_NAME2);
+                        sleep(10000);
+                        if ($(byText("ИА-КЭ")).is(visible)) {
+                            $(byText("ИА-КЭ")).click();
+
+                        }
+                    } else {
+                        $(byText(AUTOTEST_NAME2)).click();
+                    }
+                    sleep(1000);
+                    $$(PATH).findBy(text(BUTTON)).click();
+
+                    if ($(byText("Автотест2 , Сотрудник, Департамент 2")).is(visible)) {
+                        $(byText("Автотест2 , Сотрудник, Департамент 2")).click();
+                    } else if ($("div.form-item-container:nth-child(20) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
+                        $("div.form-item-container:nth-child(20) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
+                        $("#query").setValue(AUTOTEST_NAME2);
+                        $(byText(AUTOTEST_NAME2)).click();
+                        $$(PATH).findBy(text(BUTTON)).click();
+
+                    } else if ($("div.form-item-container:nth-child(19) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
+                        $("div.form-item-container:nth-child(19) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)")
+                                .click();
+                        sleep(10000);
+                        if ($(byXpath("//input[@id='query']")).is(visible)) {
+
+                            $(byXpath("//input[@id='query']")).setValue(AUTOTEST_NAME2);
+
+                            $(byText("Тестовый отдел")).click();
+                        } else {
+                            $(byText(AUTOTEST_NAME2)).click();
+                        }
+
+                        $$(PATH).findBy(text(BUTTON)).click();
+                    }
+                }
             }
         }
-// потестить на других площадках и понять что да как использовать этот блок когда
-//        if (!($("#dsid_stamp").is(visible))) {
-//            $("#dsid_stamp").scrollIntoView(true);
-//        }
-//        $("#dsid_stamp").click();
-//        sleep(1000);
-//        $(byText("Общего пользования")).click();
-
-
     }
+
 
     //
     @Test
     public void test_296() {
-        // содержание
-        Buttons.save();
-        sleep(1000);
-        Buttons.content();
-        sleep(1000);
-        Buttons.requisites();
-        sleep(1000);
-        registrationNumber = $("#dss_work_number").getValue();
-        if (registrationNumber.isBlank()) {
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+            // содержание
+            Buttons.save();
+            sleep(1000);
+            Buttons.content();
+            sleep(1000);
+            Buttons.requisites();
             sleep(1000);
             registrationNumber = $("#dss_work_number").getValue();
+            if (registrationNumber.isBlank()) {
+                sleep(1000);
+                registrationNumber = $("#dss_work_number").getValue();
 
+            }
         }
     }
 
     @Test
     public void test_297() {
-        // содержание
-        Buttons.agreement();
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+            // содержание
+            Buttons.agreement();
+        }
     }
 
     @Test
     public void test_299() {
-        // меняем пользователей
-        UserChange.exit();
-        // заходим под тем кому аресованна доверенность
-        UserChange.comInAutotest2();
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+            // меняем пользователей
+            UserChange.exit();
+            // заходим под тем кому аресованна доверенность
+            UserChange.comInAutotest2();
 
+        }
     }
 
     @Test
     public void test_300() {
-        // находим доверенность
-        sleep(10000);
-        WorkWithDocuments.tryToFindDoc(registrationNumber, "Подписание");
+        if (!corentUrl.equals(OpenBrowser.getVolsProd()) & !corentUrl.equals(OpenBrowser.getVolsSt())) {
+            // находим доверенность
+            sleep(10000);
+            WorkWithDocuments.tryToFindDoc(registrationNumber, "Подписание");
+        }
     }
 
 

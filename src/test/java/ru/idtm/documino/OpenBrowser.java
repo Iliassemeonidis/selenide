@@ -1,20 +1,26 @@
 package ru.idtm.documino;
 
-import org.junit.Before;
-
-import java.io.*;
-
 import static com.codeborne.selenide.Configuration.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class OpenBrowser {
 
     private static String leSt = "http://172.25.144.151/";
-    private static String leProd = "http://172.25.144.163";
+    private static String leProd = "http://172.25.144.163/";
     private static String leTest = "https://le-sedo.devel/";
     private static String volsSt = "http://185.187.112.58/";
+    private static String volsProd = "http://185.187.112.55/";
+//    private static String volsProd = "http://185.187.112.57/";
     private static String rossSet = "http://172.24.68.146";
     private static String tNt = "https://tnt.documino.com/";
+    private static String kuban = "http://172.18.48.233/";
+
+
+
+
+    public static String getVolsSt() { return volsSt; }
+
+    public static String getKuban() { return kuban; }
 
     public static String getLeSt() {
         return leSt;
@@ -28,8 +34,8 @@ public class OpenBrowser {
         return leTest;
     }
 
-    public static String getVolsSt() {
-        return volsSt;
+    public static String getVolsProd() {
+        return volsProd;
     }
 
     public static String getRossSet() {
@@ -39,6 +45,9 @@ public class OpenBrowser {
     public static String gettNt() {
         return tNt;
     }
+
+
+
 
     public static void openLeSt() {
         browser = "firefox";
@@ -62,7 +71,15 @@ public class OpenBrowser {
 
     public static void openVolsSt() {
         browser = "firefox";
-        open("http://185.187.112.58/");// волс cт
+       open("http://185.187.112.58/");// волс cт
+
+
+    }
+
+    public static void openVolsProd() {
+        browser = "firefox";
+        open("http://185.187.112.55/");// волс прод
+        //open("http://185.187.112.57/");// волс прод
 
     }
 
@@ -77,6 +94,10 @@ public class OpenBrowser {
         open("https://tnt.documino.com/");// tnt
 
     }
+    public static void openKubEnergoProd() {
+        browser = "firefox";
+        open("http://172.18.48.233/");// кубань энегрго прод
 
+    }
 
 }

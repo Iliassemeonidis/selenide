@@ -105,8 +105,7 @@ public class RequiredFields {
             }
             $$(PATH).findBy(text(BUTTON)).click();
 
-        }
-        else {
+        } else {
             if ($(byXpath("//*[@id=\"drid_addressee_empl\"]")).is(visible)) {
                 $(byXpath("//*[@id=\"drid_addressee_empl\"]")).setValue(name);
             } else if ($("#dsid_main_performer_empl").is(visible)) {
@@ -135,7 +134,7 @@ public class RequiredFields {
             if ($(byText("Тестовый отдел")).is(visible)) {
                 $(byText("Тестовый отдел")).click();
                 $$(PATH).findBy(text(BUTTON)).click();
-            }else if ($(byText("ООО \"Айди-Технологии управления\"")).is(visible)) {
+            } else if ($(byText("ООО \"Айди-Технологии управления\"")).is(visible)) {
                 $(byText("ООО \"Айди-Технологии управления\"")).click();
                 $$(PATH).findBy(text(BUTTON)).click();
             } else if ($(byText(name)).is(visible)) {
@@ -145,15 +144,16 @@ public class RequiredFields {
         }
 
 
-        if($("#dsdt_control_date").is(visible)){
-        $("#dsdt_control_date").click();
-        sleep(1000);
-        $(byText("5")).click();
+        if ($("#dsdt_control_date").is(visible)) {
+            $("#dsdt_control_date").click();
+            sleep(1000);
+            $$(byText("15")).last().click();
+        }
+
+
     }
 
-
-}
-public static void addressee(String name, String emploer) {
+    public static void addressee(String name, String emploer) {
 
         if ($(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[1]/div[11]/div/div/div[1]/div/div/div/div/div/div/div[1]/button")).is(visible)) {
 
@@ -172,8 +172,7 @@ public static void addressee(String name, String emploer) {
             }
             $(byText(emploer)).click();
 
-        }
-        else {
+        } else {
             if ($(byXpath("//*[@id=\"drid_addressee_empl\"]")).is(visible)) {
                 $(byXpath("//*[@id=\"drid_addressee_empl\"]")).setValue(name);
             } else if ($("#dsid_main_performer_empl").is(visible)) {
@@ -187,8 +186,7 @@ public static void addressee(String name, String emploer) {
 
             if ($(byText(emploer)).is(visible)) {
                 $(byText(emploer)).click();
-            }
-            else if ($("div.form-item-container:nth-child(9) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
+            } else if ($("div.form-item-container:nth-child(9) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
                 $("div.form-item-container:nth-child(9) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
                 $("#query").setValue(name);
 
@@ -204,9 +202,10 @@ public static void addressee(String name, String emploer) {
             if ($(byText("Тестовый отдел")).is(visible)) {
                 $(byText("Тестовый отдел")).click();
                 $$(PATH).findBy(text(BUTTON)).click();
-            }else if ($(byText("ООО \"Айди-Технологии управления\"")).is(visible)) {
+            } else if ($(byText("ООО \"Айди-Технологии управления\"")).is(visible)) {
                 $(byText("ООО \"Айди-Технологии управления\"")).click();
-                $$(PATH).findBy(text(BUTTON)).click();;
+                $$(PATH).findBy(text(BUTTON)).click();
+                ;
             } else if ($(byText(name)).is(visible)) {
                 $(byText(name)).click();
                 $$(PATH).findBy(text(BUTTON)).click();
@@ -214,14 +213,14 @@ public static void addressee(String name, String emploer) {
         }
 
 
-    if($("#dsdt_control_date").is(visible)){
-        $("#dsdt_control_date").click();
-        sleep(1000);
-        $(byText("5")).click();
+        if ($("#dsdt_control_date").is(visible)) {
+            $("#dsdt_control_date").click();
+            sleep(1000);
+            $$(byText("15")).last().click();
+        }
+
+
     }
-
-
-}
 
     public static void signatory(String text) {
         $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div/div[2]/div[2]/div/div[1]/div[11]/div/div/div[1]/div[1]/div/div/div/div/div[1]/button")).click();
@@ -236,8 +235,86 @@ public static void addressee(String name, String emploer) {
         $("#dsid_main_performer_empl").setValue(name);
         $(byText(fulleName)).click();
         $("#dsdt_control_date").click();
-        $(byText("15")).click();
+        $$(byText("15")).last().click();
     }
 
+    public static void singer(String name, String fulleName, String scc) {
+
+        if (!$("#dsid_signer_empl").is(visible)) {
+            $("#dsid_signer_empl").scrollIntoView(true);
+        }
+        $("#dsid_signer_empl").setValue(name);
+        sleep(10000);
+        if (name.equals(AUTOTEST_NAME2)) {
+
+            if ($(byText(fulleName)).is(visible)) {
+                $(byText(fulleName)).click();
+
+            } else {
+                $(scc).click();
+                $("#query").setValue(AUTOTEST_NAME2);
+                sleep(10000);
+                if ($(byText(AUTOTEST_NAME2)).is(visible)) {
+                    $(byText(AUTOTEST_NAME2)).click();
+                } else if ($(byText("Тестовый Филиал")).is(visible)) {
+                    $(byText("Тестовый Филиал")).click();
+                } else if ($(byText("Сотрудник")).is(visible)) {
+                    $(byText("Сотрудник")).click();
+                }
+                $$(byText("Выбрать")).last().click();
+            }
+        }
+    }
+
+    public static void agentPerson(String name) {
+        // Внешний аресат
+        sleep(1000);
+
+
+        if (!($("#dsid_agent_person").is(visible))) {
+            $("#dsid_agent_person").scrollIntoView(true);
+        }
+        if (name.equals(AUTOTEST_NAME3)) {
+
+            $("#dsid_agent_person").setValue(AUTOTEST_NAME3);
+
+            sleep(1000);
+
+            if ($(byText("Автотест3 А. Т.,ПАО \"ЛЕНЭНЕРГО\",Сотрудник 3")).is(visible)) {
+                $$(byText("Автотест3 А. Т.,ПАО \"ЛЕНЭНЕРГО\",Сотрудник 3")).first().click();
+            } else if ($(byText("Автотест3 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник3")).is(visible)) {
+                $(byText("Автотест3 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник3")).click();
+            } else if ($("div.form-item-container:nth-child(14) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
+                $("div.form-item-container:nth-child(14) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
+                $("#fio").setValue(AUTOTEST_NAME3);
+                sleep(1000);
+                $(byText("Сотрудник3")).click();
+                $$(PATH).findBy(text(BUTTON)).click();
+            } else if ($("div.form-item-container:nth-child(16) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
+                $("div.form-item-container:nth-child(16) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
+                $("#fio").setValue(AUTOTEST_NAME1);
+                sleep(1000);
+                $(byText("Сотрудник1")).click();
+                $$(PATH).findBy(text(BUTTON)).click();
+            }
+        } else if (name.equals(AUTOTEST_NAME1)) {
+            $("#dsid_agent_person").setValue(AUTOTEST_NAME1);
+            sleep(10000);
+            if ($(byText("Автотест1, Сотрудник, ПАО \"Кубаньэнерго\"")).is(visible)) {
+                $(byText("Автотест1, Сотрудник, ПАО \"Кубаньэнерго\"")).click();
+            }
+        }
+    }
+
+    public static void addresseeEmpl(String name, String longName) {
+        //Внутренний адресат
+        if (!$("#drid_addressee_empl").is(visible)) {
+            $("#drid_addressee_empl").scrollIntoView(true);
+        }
+        $("#drid_addressee_empl").setValue(name);
+        sleep(10000);
+        $(byText(longName)).click();
+        //"Автотест4 , Сотрудник, Тестовый отдел"
+    }
 
 }
