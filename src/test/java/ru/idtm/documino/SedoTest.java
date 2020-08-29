@@ -98,7 +98,7 @@ public class SedoTest {
     public void tess_90() {
         //Configuration.headless = true;
         //Configuration.startMaximized = true;
-        OpenBrowser.openLeTest();
+        OpenBrowser.openLeProd();
         corentUrl = url();
         sleep(1000);
         /// sleep(10000);
