@@ -1,4 +1,4 @@
-package ru.idtm.documino;
+package ru.idtm.documino.sedo;
 
 
 import com.codeborne.selenide.Condition;
@@ -7,6 +7,7 @@ import com.codeborne.selenide.junit.ScreenShooter;
 import fields.Fields;
 import org.junit.Rule;
 import org.junit.Test;
+import ru.idtm.documino.*;
 
 import java.util.Random;
 
@@ -81,8 +82,9 @@ public class SedoTest {
     private static final String AUTOTEST_ROSSET_ORGAN_NAME5 = "Автотест5 А. Т.,ПАО \"Кубаньэнерго\",Сотрудник5";
     private static final String AUTOTEST1_TNT = "Автотест1 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник1";
     private static final String AUTOTEST2_TNT = "Автотест2 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник2";
-    private static final String AUTOTEST3_TNT = "Автотест3 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник3";
-    private static final String AUTOTEST4_TNT = "Автотест4 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник4";
+//    private static final String AUTOTEST3_TNT = "Автотест3 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник3";
+    private static final String AUTOTEST4_TNT = "Автотест4 А. Т., Сотрудник4, ООО \"Айди-Технологии управления\"";
+    private static final String AUTOTEST3_TNT = "Автотест3 А. Т., Сотрудник3, ООО \"Айди-Технологии управления\"";
     private static final String AUTOTEST5_TNT = "Автотест5 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник5";
     private static final String AUTOTEST1_TNT_EMPLOER = "Автотест1 , Зам. начальник отдела, ООО \"Айди-Технологии управления\"";
     private static final String AUTOTEST2_TNT_EMPLOER = "Автотест2 , Зам. начальник отдела, ООО \"Айди-Технологии управления\"";
@@ -90,7 +92,6 @@ public class SedoTest {
     private static final String AUTOTEST4_TNT_EMPLOER = "Автотест4 , Зам. начальник отдела, ООО \"Айди-Технологии управления\"";
     private static final String AUTOTEST5_TNT_EMPLOER = "Автотест5 , Зам. начальник отдела, ООО \"Айди-Технологии управления\"";
     private static String corentUrl;
-
     @Rule
     public ScreenShooter screenShooter = ScreenShooter.failedTests().succeededTests();
 
@@ -98,7 +99,7 @@ public class SedoTest {
     public void tess_90() {
         //Configuration.headless = true;
         //Configuration.startMaximized = true;
-        OpenBrowser.openLeProd();
+        OpenBrowser.openKubEnergoProd();
         corentUrl = url();
         sleep(1000);
         /// sleep(10000);
@@ -106,7 +107,7 @@ public class SedoTest {
     }
 
 
-    ///// приказ
+    //// приказ
     @Test
     public void test_125() {
         //  CreateDocument.createInDoc(REGULATORY_DOCUMENTS, ORDER_DOCUMENTS);
@@ -283,9 +284,7 @@ public class SedoTest {
         $$(PATH).findBy(text(BUTTON)).click();
         boolean b = $(byText("Добавить")).isDisplayed();
         if (!b) {
-            $$(byText("Сохранить")).shouldHaveSize(7)
-                    .get(6)
-                    .click();
+            $$(byText("Сохранить")).get($$(byText("Сохранить")).size()-1).click();
         } else $(byText("Добавить")).click();
         sleep(1000);
     }
@@ -661,13 +660,7 @@ public class SedoTest {
     @Test
     public void test_185() {
         // все задания
-//        $("li.list-item-container:nth-child(4)").click();
-//        sleep(1000);
-//        $(byXpath("/html/body/div[1]/div[3]/div/div[1]/nav/ul/div/li[4]/ul/li[1]/button")).click();
-//        sleep(1000);
-        boolean visible = $(byText("Все задания")).isDisplayed();
-
-        if (!visible) {
+        if (!$(byText("Все задания")).isDisplayed()) {
             $(byText("Мои задания")).click();
         }
         Buttons.allTasks();
@@ -869,16 +862,18 @@ public class SedoTest {
     public void test_210() {
         // описание заполняем и
         $(byXpath("//*[@id=\"dssDescription\"]")).setValue(inWork);
-        // контролер
-        $("div.input-field-container:nth-child(7) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > small:nth-child(1)").click();
-        sleep(1000);
-        $("#dsidControllerEmpl").setValue(AUTOTEST_NAME5);
-        sleep(1000);
-        if (corentUrl.equals(OpenBrowser.getVolsProd()) || corentUrl.equals(OpenBrowser.getVolsSt())) {
-            $(byText("Автотест5 , Сотрудник, Департамент 3")).click();
-        } else {
+        if (!corentUrl.equals(OpenBrowser.gettNt())) {
 
-            $(byText(AUTOTEST5)).click();
+            // контролер
+            $("div.input-field-container:nth-child(7) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > small:nth-child(1)").click();
+            sleep(1000);
+            $("#dsidControllerEmpl").setValue(AUTOTEST_NAME5);
+            sleep(1000);
+            if (corentUrl.equals(OpenBrowser.getVolsProd()) || corentUrl.equals(OpenBrowser.getVolsSt())) {
+                $(byText("Автотест5 , Сотрудник, Департамент 3")).click();
+            }  else {
+                $(byText(AUTOTEST5)).click();
+            }
         }
     }
 
@@ -954,7 +949,7 @@ public class SedoTest {
         $("button.empty-purple:nth-child(4)").click();
     }
 
-  ////////////   чать 2 Исх, Вх, Внутр, ИП
+  ////////   чать 2 Исх, Вх, Внутр, ИП
     @Test
     public void test_229() {
         UserChange.exit();
@@ -971,7 +966,8 @@ public class SedoTest {
         // исходящий документ
         if (corentUrl.equals(OpenBrowser.getKuban())) {
             CreateDocument.create(OUTPUTDOCUMENT);
-        } else CreateDocument.createDoc(OUTPUTDOCUMENT, OUTPUTDOCUMENT1);
+        }else CreateDocument.create(OUTPUTDOCUMENT);
+//        else CreateDocument.createDoc(OUTPUTDOCUMENT, OUTPUTDOCUMENT1);
     }
 
     @Test
@@ -1071,17 +1067,20 @@ public class SedoTest {
         // сохраняем спецом чтоб перекинуло к незаполненым полям если они есть
         Buttons.save();
         sleep(10000);
-        if (corentUrl.equals(OpenBrowser.getKuban())) {
+        if (corentUrl.equals(OpenBrowser.getKuban()) ) {
 
             // ВНЕШНИЙ АДРЕСАТ
             RequiredFields.addresseeEmpl(AUTOTEST_NAME4, "Автотест4 , Сотрудник, Тестовый отдел");
+        } else if (corentUrl.equals(OpenBrowser.gettNt())) {
+            RequiredFields.addresseeEmpl(AUTOTEST_NAME4, AUTOTEST4_TNT_EMPLOER);
+
         }
 
     }
 
     @Test
     public void test_237() {
-        if (corentUrl.equals(OpenBrowser.getLeTest()) || (corentUrl.equals(OpenBrowser.getKuban()))) {
+        if (corentUrl.equals(OpenBrowser.getLeTest()) || (corentUrl.equals(OpenBrowser.getKuban())) || corentUrl.equals(OpenBrowser.gettNt())) {
 
 
             if (!corentUrl.equals(OpenBrowser.getKuban())) {
@@ -1091,6 +1090,8 @@ public class SedoTest {
                 if (!type.equals("Внутренний адресат")) {
                     RequiredFields.agentPerson(AUTOTEST_NAME3);
                 }
+            } else if (corentUrl.equals(OpenBrowser.gettNt())) {
+                RequiredFields.agentPerson(AUTOTEST_NAME3);
             } else {
                 RequiredFields.agentPerson(AUTOTEST_NAME1);
 
@@ -1161,9 +1162,7 @@ public class SedoTest {
     @Test
     public void test_244() {
         //нажимаем сохранить
-        $$(byText("Сохранить")).shouldHaveSize(7)
-                .get(6)
-                .click();
+        $$(byText("Сохранить")).get($$(byText("Сохранить")).size()-1).click();
 
     }
 
@@ -1271,7 +1270,7 @@ public class SedoTest {
     }
 
 
-    /// //////// Входящий документ
+    //////// Входящий документ
 
     @Test
     public void test_254() {
@@ -1514,7 +1513,12 @@ public class SedoTest {
             Buttons.requisites();
             sleep(10000);
             RequiredFields.description("Auto-test");
-            RequiredFields.addressee(AUTOTEST_NAME1, DEPARTMENT1, AUTOTEST1, AUTOTEST_ROSSET_NAME1);
+            if (corentUrl.equals(OpenBrowser.gettNt())) {
+                RequiredFields.addressee(AUTOTEST_NAME1, AUTOTEST1_TNT_EMPLOER);
+            } else {
+
+                RequiredFields.addressee(AUTOTEST_NAME1, DEPARTMENT1, AUTOTEST1, AUTOTEST_ROSSET_NAME1);
+            }
             if (!$("#dsid_document_kind").is(visible)) {
                 $("#dsid_document_kind").scrollIntoView(true);
                 $("#dsid_document_kind").setValue("В");
@@ -1569,17 +1573,17 @@ public class SedoTest {
         // проверка статус доркумента
         $$("div.form-item-container:nth-child(2) > div:nth-child(1) > div:nth-child(2)").findBy(text("В подразделении"));
     }
-//
-//    @Test
-//    public void test_273() {
-//        // задание
-//        sleep(20000);
-//        Buttons.history();
-//        $(".documentTab").shouldHave(text("Рассмотрение"));
-////        .documentTab
-//    }
 
-    //   служебная записка
+// //   @Test
+//  //  public void test_273() {
+//   //     // задание
+//  //      sleep(20000);
+//   //     Buttons.history();
+//   //     $(".documentTab").shouldHave(text("Рассмотрение"));
+////  //      .documentTab
+//  //  }
+//
+//    ////   служебная записка
     @Test
     public void test_274() {
 //        CreateDocument.createInDoc(INTERNAL_DOCUMENTS,MEMORANDUM_TEXT);

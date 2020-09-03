@@ -68,12 +68,20 @@ public class Fields {
             }
         }
         sleep(1000);
-        boolean save = $(byXpath("/html/body/div[6]/div/div[3]/span/button[1]")).isDisplayed();
-        if (!save) {
-            $$(byText("Сохранить")).shouldHaveSize(7)
-                    .get(6)
-                    .click();
-        } else $(byXpath("/html/body/div[6]/div/div[3]/span/button[1]")).click();
+        $$(byText("Сохранить")).get($$(byText("Сохранить")).size()-1).click();
+//
+//        if ($$(byText("Сохранить")).size()<=7) {
+//            $$(byText("Сохранить")).shouldHaveSize(7)
+//                    .get(6)
+//                    .click();
+//        }
+//        else if ( $$(byText("Сохранить")).size()>7) {
+//            $$(byText("Сохранить")).shouldHaveSize(8)
+//                    .get(7)
+//                    .click();
+//        } else {
+//            $(byXpath("/html/body/div[6]/div/div[3]/span/button[1]")).click();
+//        }
 
         sleep(1000);
 

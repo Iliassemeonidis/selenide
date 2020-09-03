@@ -96,10 +96,14 @@ public class RequiredFields {
 
                 $(byText(emploer)).click();
 
-            } else {
+            } else if ($(byText(name)).is(visible)) {
+
+                $(byText(name)).click();
+
+            }else {
                 $("div.form-item-container:nth-child(13) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
                 $("#query").setValue(name);
-                sleep(1000);
+                sleep(10000);
                 $(byText(name)).click();
 
             }
@@ -162,10 +166,12 @@ public class RequiredFields {
             if (!($(byXpath("//*[@id=\"query\"]")).is(visible))) {
                 $(byXpath("//*[@id=\"query\"]")).scrollIntoView(true);
             }
+            sleep(1000);
             $(byXpath("//*[@id=\"query\"]")).setValue(name);
 
             if (!$(byText(emploer)).is(visible)) {
                 $("div.form-item-container:nth-child(13) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
+                sleep(1000);
                 $("#query").setValue(name);
                 sleep(1000);
 
@@ -284,6 +290,8 @@ public class RequiredFields {
                 $$(byText("Автотест3 А. Т.,ПАО \"ЛЕНЭНЕРГО\",Сотрудник 3")).first().click();
             } else if ($(byText("Автотест3 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник3")).is(visible)) {
                 $(byText("Автотест3 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник3")).click();
+            } else if ($(byText("Автотест3 А. Т., Сотрудник3, ООО \"Айди-Технологии управления\"")).is(visible)) {
+                $(byText("Автотест3 А. Т., Сотрудник3, ООО \"Айди-Технологии управления\"")).click();
             } else if ($("div.form-item-container:nth-child(14) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
                 $("div.form-item-container:nth-child(14) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
                 $("#fio").setValue(AUTOTEST_NAME3);
