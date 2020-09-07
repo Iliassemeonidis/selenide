@@ -13,7 +13,8 @@ public class OpenBrowser {
 //    private static String volsProd = "http://185.187.112.57/";
     private static String rossSet = "http://172.24.68.146";
     private static String tNt = "https://tnt.documino.com/";
-    private static String kuban = "http://172.18.48.233/";
+//    private static String kuban = "http://172.18.48.233/";
+    private static String kuban = "http://172.18.48.234/";
 
 
 
@@ -96,7 +97,8 @@ public class OpenBrowser {
     }
     public static void openKubEnergoProd() {
         browser = "firefox";
-        open("http://172.18.48.233/");// кубань энегрго прод
+//        open("http://172.18.48.233/");// кубань энегрго прод
+        open("http://172.18.48.234/");// кубань энегрго прод временно пока не починят основной прод
 
     }
 
