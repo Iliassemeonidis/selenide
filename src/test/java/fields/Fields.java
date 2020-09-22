@@ -11,6 +11,8 @@ public class Fields {
     private static final String PATH = "html body.el-popup-parent--hidden div.el-dialog__wrapper div.el-dialog.user-list-dialogue-wrapper div.el-dialog__footer span.dialog-footer button.primary.default-margin-right.btn-def.fs-12";
     private static final String BUTTON = "Выбрать";
     private static boolean visible;
+//    private static final String filial = "ТЕСТ-КЭ";
+    private static final String filial = "Тестовый Филиал";
 
     public static void agreement(String shortName, String department, String longName) {
         // Согласующий
@@ -95,11 +97,11 @@ public class Fields {
             $("#term").setValue("2");
         }
         $(".layout-icon").click();
-        $(byXpath("//*[@id=\"branchId\"]")).setValue("Тестовый Филиал");
+        $(byXpath("//*[@id=\"branchId\"]")).setValue(filial);
         sleep(10000);
-        if ($(byText("Тестовый Филиал")).is(Condition.visible)) {
+        if ($(byText(filial)).is(Condition.visible)) {
 
-            $(byText("Тестовый Филиал")).click();
+            $(byText(filial)).click();
         } else {
             if ($(byText("Тестовый филиал")).is(Condition.visible)) {
 

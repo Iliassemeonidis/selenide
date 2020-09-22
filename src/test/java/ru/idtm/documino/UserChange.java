@@ -87,7 +87,7 @@ public class UserChange {
     }
 
     public static void comInAutotest1() {
-        sleep(10000);
+        sleep(1000);
 
         $("div.m-b-16:nth-child(1) > input:nth-child(1)").setValue("Autotest1").pressEnter();
         $("div.m-b-16:nth-child(2) > input:nth-child(1)").setValue("1");
@@ -96,7 +96,7 @@ public class UserChange {
     }
 
     public static void comInAutotest2() {
-        sleep(10000);
+        sleep(1000);
         $("div.m-b-16:nth-child(1) > input:nth-child(1)").setValue("Autotest2").pressEnter();
         $("div.m-b-16:nth-child(2) > input:nth-child(1)").setValue("1");
         $(byText("Войти")).click();
@@ -104,7 +104,7 @@ public class UserChange {
     }
 
     public static void comInAutotest3() {
-        sleep(10000);
+        sleep(1000);
         $("div.m-b-16:nth-child(1) > input:nth-child(1)").setValue("Autotest3").pressEnter();
         $("div.m-b-16:nth-child(2) > input:nth-child(1)").setValue("1");
         $(byText("Войти")).click();
@@ -112,7 +112,7 @@ public class UserChange {
     }
 
     public static void comInAutotest4() {
-        sleep(10000);
+        sleep(1000);
        $("div.m-b-16:nth-child(1) > input:nth-child(1)").setValue("Autotest4").pressEnter();
        $("div.m-b-16:nth-child(2) > input:nth-child(1)").setValue("1");
         $(byText("Войти")).click();
@@ -120,7 +120,7 @@ public class UserChange {
     }
 
     public static void comInAutotest5() {
-        sleep(10000);
+        sleep(1000);
        $("div.m-b-16:nth-child(1) > input:nth-child(1)").setValue("Autotest5").pressEnter();
        $("div.m-b-16:nth-child(2) > input:nth-child(1)").setValue("1");
         $(byText("Войти")).click();

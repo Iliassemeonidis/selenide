@@ -12,7 +12,17 @@ public class WorkWithDocuments {
         if ($(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/button")).is(Condition.visible)) {
 
             $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/button")).click();
-            $(byXpath("//*[@id=\"desc\"]")).setValue(description);
+
+            if ($(".base-input").is(Condition.visible)) {
+                $(".base-input").setValue(description);
+            } else {
+
+                $(byXpath("//*[@id=\"desc\"]")).setValue(description);
+            }
+
+            if ($(".input-search-button").is(Condition.visible)) {
+                $(".input-search-button").click();
+            }
             sleep(10000);
             $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/div[4]/div[2]/button")).click();
             sleep(1000);
@@ -41,7 +51,15 @@ public class WorkWithDocuments {
 
     public static void tryToFindDocWithRegNumber(String regNumber){
         $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/button")).click();
-        $(byXpath("//*[@id=\"desc\"]")).setValue(regNumber);
+        if ($(".base-input").is(Condition.visible)) {
+            $(".base-input").setValue(regNumber);
+        } else {
+
+            $(byXpath("//*[@id=\"desc\"]")).setValue(regNumber);
+        }
+        if ($(".input-search-button").is(Condition.visible)) {
+            $(".input-search-button").click();
+        }
         sleep(10000);
         $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/div[4]/div[2]/button")).click();
         sleep(1000);
@@ -57,7 +75,15 @@ public class WorkWithDocuments {
         if ($(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/button")).is(Condition.visible)) {
 
             $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/button")).click();
-            $(byXpath("//*[@id=\"desc\"]")).setValue(singer);
+            if ($(".base-input").is(Condition.visible)) {
+                $(".base-input").setValue(singer);
+            } else {
+
+                $(byXpath("//*[@id=\"desc\"]")).setValue(singer);
+            }
+            if ($(".input-search-button").is(Condition.visible)) {
+                $(".input-search-button").click();
+            }
             sleep(10000);
             $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/div[4]/div[2]/button")).click();
             sleep(1000);
@@ -102,7 +128,15 @@ public class WorkWithDocuments {
         }
         $(byText("Все задания")).click();
         $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/button")).click();
-        $(byXpath("//*[@id=\"desc\"]")).setValue(text);
+        if ($(".base-input").is(Condition.visible)) {
+            $(".base-input").setValue(text);
+        } else {
+
+            $(byXpath("//*[@id=\"desc\"]")).setValue(text);
+        }
+        if ($(".input-search-button").is(Condition.visible)) {
+            $(".input-search-button").click();
+        }
         sleep(10000);
         $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/div[4]/div[2]/button")).click();
         sleep(1000);
@@ -119,8 +153,16 @@ public class WorkWithDocuments {
         $(byText("Все задания")).click();
         if ($(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/button")).is(Condition.visible)) {
             $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/button")).click();
-            $(byXpath("//*[@id=\"desc\"]")).setValue(text);
-            sleep(10000);
+            if ($(".base-input").is(Condition.visible)) {
+                $(".base-input").setValue(text);
+            } else {
+
+                $(byXpath("//*[@id=\"desc\"]")).setValue(text);
+            }
+            if ($(".input-search-button").is(Condition.visible)) {
+                $(".input-search-button").click();
+            }
+                sleep(10000);
             $(byXpath("/html/body/div[1]/div[3]/div/div[2]/div[2]/div[1]/div[2]/div/div[1]/div/div[1]/div[1]/div[1]/div/div[4]/div[2]/button")).click();
             sleep(1000);
             $$(byText(description))

@@ -38,5 +38,13 @@ public class Content {
 
 
     }
+    public static void contentUploadLast(String fileName) {
+
+        $$("input")
+                .last()
+                .uploadFile(new File(fileName));
+
+        //$("input").uploadFile(new File(fileName));
+    }
 
 }

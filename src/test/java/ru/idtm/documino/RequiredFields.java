@@ -292,7 +292,9 @@ public class RequiredFields {
                 $(byText("Автотест3 А. Т.,ООО \"Айди-Технологии управления\",Сотрудник3")).click();
             } else if ($(byText("Автотест3 А. Т., Сотрудник3, ООО \"Айди-Технологии управления\"")).is(visible)) {
                 $(byText("Автотест3 А. Т., Сотрудник3, ООО \"Айди-Технологии управления\"")).click();
-            }  else if ($("div.form-item-container:nth-child(14) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
+            } else if ($(byText("-, Автотест3 А. Т.")).is(visible)) {
+                $(byText("-, Автотест3 А. Т.")).click();
+            } else if ($("div.form-item-container:nth-child(14) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").is(visible)) {
                 $("div.form-item-container:nth-child(14) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > button:nth-child(1)").click();
                 $("#fio").setValue(AUTOTEST_NAME3);
                 sleep(1000);

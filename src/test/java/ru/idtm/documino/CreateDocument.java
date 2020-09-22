@@ -3,6 +3,7 @@ package ru.idtm.documino;
 import com.codeborne.selenide.Condition;
 
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CreateDocument {
@@ -21,10 +22,12 @@ public class CreateDocument {
 
         }else {
            // $(byText("Создать документ")).click();
-            $("html body.el-popup-parent--hidden div.el-dialog__wrapper div.el-dialog div.el-dialog__body div div.dialogue-container div.items-container div.scroll-wrap div.search-input-wrapper div.input-with-select.el-input input.el-input__inner").setValue(documentName);
+//            $(".el-input__inner").setValue(documentName);
+            $(byXpath("//input[@placeholder='Поиск по типам документов']")).setValue(documentName);
             $$(byText(documentName)).first().click();
             sleep(10000);
         }
+        sleep(1000);
         if (!$(byText("Создать")).is(Condition.visible)) {
 
             $(byText("Создать")).scrollIntoView(true);
@@ -48,9 +51,8 @@ public class CreateDocument {
 
                     $(byText(otherNAme)).click();
             }
-        }else {
-           // $(byText("Создать документ")).click();
-            $("html body.el-popup-parent--hidden div.el-dialog__wrapper div.el-dialog div.el-dialog__body div div.dialogue-container div.items-container div.scroll-wrap div.search-input-wrapper div.input-with-select.el-input input.el-input__inner").setValue(documentName);
+        }  else {
+            $(".el-input__inner").setValue(documentName);
 
             sleep(10000);
 
@@ -60,10 +62,9 @@ public class CreateDocument {
 
                 $(byText(otherNAme)).click();
             }
-            sleep(10000);
         }
+        sleep(10000);
         if (!$(byText("Создать")).is(Condition.visible)) {
-
             $(byText("Создать")).scrollIntoView(true);
         }
         $(byText("Создать")).click();
@@ -79,12 +80,14 @@ public class CreateDocument {
         if ($(byText(documentName)).isDisplayed()) {
             $(byText(documentName)).click();
         }else {
-            $("html body.el-popup-parent--hidden div.el-dialog__wrapper div.el-dialog div.el-dialog__body div div.dialogue-container div.items-container div.scroll-wrap div.search-input-wrapper div.input-with-select.el-input input.el-input__inner").setValue(documentName);
+//            $(".el-input__inner").setValue(documentName);
+            $(byXpath("//input[@placeholder='Поиск по типам документов']")).setValue(documentName);
             if ($(byText(documentName)).is(Condition.visible)) {
                 $$(byText(documentName)).first().click();
 
             } else {
-                $("html body.el-popup-parent--hidden div.el-dialog__wrapper div.el-dialog div.el-dialog__body div div.dialogue-container div.items-container div.scroll-wrap div.search-input-wrapper div.input-with-select.el-input input.el-input__inner").setValue(otherNAme);
+//                $(".el-input__inner").setValue(otherNAme);
+                $(byXpath("//input[@placeholder='Поиск по типам документов']")).setValue(documentName);
                 $(byText(otherNAme)).click();
             }
             sleep(10000);

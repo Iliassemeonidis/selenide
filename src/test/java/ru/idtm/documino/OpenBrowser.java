@@ -11,10 +11,12 @@ public class OpenBrowser {
     private static String volsSt = "http://185.187.112.58/";
     private static String volsProd = "http://185.187.112.55/";
 //    private static String volsProd = "http://185.187.112.57/";
-    private static String rossSet = "http://172.24.68.146";
+    private static String rossSet = "http://172.24.68.146/";
+
     private static String tNt = "https://tnt.documino.com/";
-//    private static String kuban = "http://172.18.48.233/";
-    private static String kuban = "http://172.18.48.234/";
+    private static String kuban = "http://172.18.48.233/";
+//    private static String kuban = "http://172.18.48.234/";
+    private static String siberia = "http://192.168.32.37/";
 
 
 
@@ -47,8 +49,9 @@ public class OpenBrowser {
         return tNt;
     }
 
-
-
+    public static String getSiberia() {
+        return siberia;
+    }
 
     public static void openLeSt() {
         browser = "firefox";
@@ -97,9 +100,14 @@ public class OpenBrowser {
     }
     public static void openKubEnergoProd() {
         browser = "firefox";
-//        open("http://172.18.48.233/");// кубань энегрго прод
-        open("http://172.18.48.234/");// кубань энегрго прод временно пока не починят основной прод
+        open("http://172.18.48.233/");// кубань энегрго прод
+//        open("http://172.18.48.234/");// кубань энегрго прод временно пока не починят основной прод
 
+    }
+
+    public static void openSiberia() {
+        browser = "firefox";
+        open("http://192.168.32.37/");
     }
 
 }
